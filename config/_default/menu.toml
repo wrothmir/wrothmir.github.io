@@ -1,10 +1,10 @@
 [[main]]
 weight = 1
-identifier = "journals"
+identifier = "records"
 pre = "<i class='fas fa-newspaper'></i>"
 post = ""
-name = "Journals"
-url = "/journals/"
+name = "Records"
+url = "/records/"
 title = ""
 
 [[main]]
