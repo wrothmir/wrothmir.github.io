@@ -1,6 +1,7 @@
 ---
-title: '{{ replace .File.ContentBaseName "-" " " | title }}'
 draft: true
+
+title: '{{ replace .File.ContentBaseName "-" " " | title }}'
 subtitle: ''
 summary: ''
 description: ''
