@@ -1,6 +1,7 @@
 ---
+draft: false
+
 title: 'Getting Started With NixOS'
-draft: true
 subtitle: "A gentle introduction to NixOS"
 summary: "This is a record of my thoughts on why one should switch to NixOS, and how to get started with it."
 description: "Installing NixOS and basic configuration."
@@ -41,9 +42,13 @@ rssFullText: true
     C -->|Two| E[Result two]
 {{< /mermaid >}}
 
+## Something else
+
 {{< admonition type=tip title="This is a tip" open=false >}}
 A **tip** banner
 {{< /admonition >}}
+
+## Something more
 
 {{< typeit >}}
 This is a *paragraph* with **typing animation** based on [TypeIt](https://typeitjs.com/)...
