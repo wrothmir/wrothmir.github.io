@@ -2,3 +2,20 @@
 name = "raikan-san"
 email = "raikan-san@proton.me"
 link = "https://raikan-san.is-a.dev"
+
+[header.title]
+logo = "/favicons/favicon.ico"
+name = "glitched echoes"
+pre = ""
+post = ""
+typeit = true
+
+[home.profile]
+enable = true
+gravatarEmail = "raikan-san@proton.me"
+avatarURL = "/images/profile.png"
+title = ""
+subtitle = ""
+typeit = true
+social = true
+disclaimer = ""
