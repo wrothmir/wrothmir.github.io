@@ -1,0 +1,18 @@
+baseURL = 'https://example.org/'
+title = 'glitched dunes'
+
+theme = 'DoIt'
+themesDir = 'themes'
+
+languageCode = 'en-us'
+defaultContentLanguage = "en"
+languageName = "English"
+
+hasCJKLanguage = false
+paginate = 12
+googleAnalytics = ""
+copyright = ""
+enableRobotsTXT = true
+enableGitInfo = true
+enableEmoji = true
+ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
