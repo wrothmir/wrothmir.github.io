@@ -1,10 +1,10 @@
 ---
 draft: true
 
-title: 'Creating TUIpist'
+title: 'Creating Tuipist'
 subtitle: 'Why, & how'
-summary: 'This record is an account of my experience building, and improving my command line typing practice tool - TUIpist.'
-description: 'Reasons to create TUIpist, and how I did so.'
+summary: 'This record is an account of my experience building, and improving my command line typing practice tool - Tuipist.'
+description: 'Reasons to create Tuipist, and how I did so.'
 
 date: 2024-09-21T18:04:39-07:00
 
