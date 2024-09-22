@@ -1,0 +1,16 @@
+// Terminess Bold{{{
+@font-face {
+  font-family: Terminess;
+  font-style: normal;
+  font-weight: 700;
+  src: local("Terminess Bold"), local("Terminess-Bold"), url("/fonts/Terminess/TerminessNerdFont-Bold.ttf") format("truetype");
+}
+
+// Terminess Regular
+@font-face {
+  font-family: Terminess;
+  font-style: normal;
+  font-weight: 400;
+  src: local("Terminess Regular"), local("Terminess-Regular"), url("/fonts/Terminess/TerminessNerdFont-Regular.ttf") format("truetype");
+}
+// }}}

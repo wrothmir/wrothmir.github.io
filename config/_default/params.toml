@@ -1,10 +1,20 @@
+defaultTheme = "auto"
+gitRepo = "https://github.com/raikan-san/raikan-san.github.io"
+fingerprint = ""
+enablePWA = true
+dateFormat = "2006-01-02"
+title = "glitched echoes"
+description = ""
+images = []
+bundle = true
+
 [author]
 name = "raikan-san"
 email = "raikan-san@proton.me"
 link = "https://raikan-san.is-a.dev"
 
 [header.title]
-logo = "/favicons/favicon.ico"
+logo = ""
 name = "glitched echoes"
 pre = ""
 post = ""
@@ -13,9 +23,59 @@ typeit = true
 [home.profile]
 enable = true
 gravatarEmail = "raikan-san@proton.me"
-avatarURL = "/images/profile.png"
-title = ""
-subtitle = ""
+avatarURL = ""
+title = "Salutations, Wanderer."
+subtitle = "Shattered code, fractured systems—this is all that remains of a once-thriving digital world. I’m [Your Name], a traveler piecing together the remnants of broken data, searching for the buried truths hidden in the chaos. If you're ready to dive into the ruins of the digital wasteland, follow the echoes…"
 typeit = true
 social = true
-disclaimer = ""
+disclaimer = "Proceed with caution - some things, once found, cannot be unlearned."
+
+[search]
+enable = true
+# type of search engine ("algolia", "fuse")
+type = "fuse"
+# max index length of the chunked content
+contentLength = 4000
+# placeholder of the search bar
+placeholder = ""
+# DoIt NEW | 0.2.1 max number of results length
+maxResultLength = 10
+# DoIt NEW | 0.2.3 snippet length of the result
+snippetLength = 30
+# DoIt NEW | 0.2.1 HTML tag name of the highlight part in results
+highlightTag = "em"
+# DoIt NEW | 0.2.4 whether to use the absolute URL based on the baseURL in search index
+absoluteURL = false
+
+[search.fuse]
+# DoIt NEW | 0.2.12 https://fusejs.io/api/options.html
+isCaseSensitive = false
+minMatchCharLength = 2
+findAllMatches = false
+location = 0
+threshold = 0.3
+distance = 100
+ignoreLocation = false
+useExtendedSearch = false
+ignoreFieldNorm = false
+
+[social]
+GitHub = "raikan-san"
+Linkedin = "vineet-pratik-agarwal"
+Stackoverflow = ""
+Steam = ""
+Mastodon = "@raikan_san"
+Ko-Fi = "raikan-san"
+Email = "raikan-san@proton.me"
+RSS = true # DoIt NEW | 0.2.0
+
+[footer]
+enable = true
+custom = ""
+hostedOn = '<a title="is-a.dev" href="https://www.is-a.dev/" target="_blank" rel="noopener noreffer">is-a.dev</a>'
+hugo = false
+copyright = true
+author = true
+#since = 2022
+icp = ""
+license = '<a rel="license external nofollow noopener noreffer" href="https://opensource.org/licenses/GPL-3.0" target="_blank">GPL-3.0</a>'
