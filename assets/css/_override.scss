@@ -1,18 +1,19 @@
-@import url('https://fonts.googleapis.com/css?family=Fira+Mono:400,700&display=swap&subset=latin-ext');
 @import url('https://fonts.googleapis.com/css2?family=M+PLUS+Code+Latin:wght@100..700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lekton:ital,wght@0,400;0,700;1,400&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@100..900&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Zilla+Slab:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
 
 // ========= COLORS =========== //
 $rusty-orange: #ad330a;
 $honey-ginger: #d87818;
 $mellow-yellow: #f9dd80;
 $black-emerald: #0b1917;
+$buttercream: #f1e4bb;
 
 // ========== Global ========== //
 // Font and Line Height
 $global-font-family:
-  Lekton,
+  Zilla Slab,
   system-ui,
   -apple-system,
   BlinkMacSystemFont,
@@ -34,36 +35,40 @@ $global-font-weight: 400;
 $global-line-height: 1.5rem;
 
 // Color of the background
-$global-background-color: $black-emerald;
+$global-background-color: $buttercream;
+$global-background-color-dark: $black-emerald;
 
 // Color of the text
-$global-font-color: var(--global-font-color) !default;
+$global-font-color: black;
+$global-font-color-dark: white;
 
 // Color of the secondary text
 $global-font-secondary-color: var(--global-font-secondary-color) !default;
 
 // Color of the link
-$global-link-color: $mellow-yellow;
+$global-link-color: $black-emerald;
+$global-link-color-dark: $buttercream;
 
 // Color of the hover link
 $global-link-hover-color: $honey-ginger;
 
 // Color of the border
 $global-border-color: var(--global-border-color) !default;
-// ========== Global ========== //
 
 // ========== Selection ========== //
 // Color of the selected text
-$selection-color: $mellow-yellow;
-$selection-text-color: black;
-// ========== Selection ========== //
+$selection-color: $black-emerald; // TODO
+$selection-color-dark: $mellow-yellow;
+$selection-text-color: $buttercream;
+$selection-text-color-dark: $black-emerald;
 
 // ========== Header ========== //
 // Height of the header
-$header-height: 3.5rem !default;
+$header-height: 4rem;
 
 // Color of the header background
-$header-background-color: $black-emerald;
+$header-background-color: $buttercream;
+$header-background-color-dark: $black-emerald;
 
 // Font style of the header title
 $header-title-font-family: Lekton, monospace;
@@ -87,7 +92,8 @@ $toc-title-font-size: 1.2rem !default;
 $toc-content-font-size: 1rem !default;
 
 // Color of the single link
-$single-link-color: $mellow-yellow;
+$single-link-color: $black-emerald;
+$single-link-color-dark: $buttercream;
 
 // Color of the hover single link
 $single-link-hover-color: $honey-ginger;

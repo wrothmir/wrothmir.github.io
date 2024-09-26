@@ -1,14 +1,48 @@
+body {
+  background: $global-background-color;
+  color: $global-font-color;
+
+  &[theme=dark] {
+    background: $global-background-color-dark;
+    color: $global-font-color-dark;
+  }
+}
+
+::selection {
+  color: $selection-text-color;
+  background: $selection-color;
+  [theme=dark] & {
+    color: $selection-text-color-dark;
+    background: $selection-color-dark;
+  }
+}
+
+a {
+  color: $global-link-color;
+  [theme=dark] & {
+    color: $global-link-color-dark;
+  }
+}
+
+header {
+  box-shadow: none;
+  transition: none;
+  [theme=dark] & {
+    background: $header-background-color-dark;
+  }
+}
+
 footer {
-  // Website footer
-  color: #d87818;
+  color: $honey-ginger;
 }
 
 #header-desktop {
+  box-shadow:none;
   .header-wrapper {
     padding: 0.75rem 2rem 0.75rem 10%;
     .header-title {
       .typeit {
-        color: #d87818;
+        color: $honey-ginger;
       }
     }
   }
@@ -19,50 +53,74 @@ footer {
     .header-wrapper {
       .header-title {
         .typeit {
-          color: #d87818;
+          color: $honey-ginger;
         }
+      }
+      .menu-toggle span{
+        background: $global-font-color;
+        [theme=dark] & {
+          background: $global-font-color-dark;
+        }
+      }
+    }
+    .menu {
+      [theme=dark] & {
+        color: $global-font-color-dark;
+        background: $global-background-color-dark;
       }
     }
   }
 }
 
-::selection {
-  color: $selection-text-color;
-}
-
-.color-theme-select {
-  position: absolute;
-  opacity: 0;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-
-  &:hover {
-    cursor: pointer;
+.home-profile {
+.single svg.icon {
+  color: $black-emerald;
+  [theme=dark] & {
+    color: $buttercream;
+  }
+  &:hover,
+  &:active,
+  &:focus {
+    color: $global-link-hover-color;
   }
 }
-
-.home-profile{
-  .links svg.icon {
-    color: $mellow-yellow;
-    &:hover,
-    &:active,
-    &:focus {
-      color: $honey-ginger;
-    }
-  }
 }
 
 .home[posts] {
   .summary {
-    border-bottom: 1.5px dashed $mellow-yellow;
+    border-bottom: 1.5px dashed $black-emerald;
+    [theme=dark] & {
+      border-bottom: 1.5px dashed $mellow-yellow;
+    }
     .single-title a {
-      color: $mellow-yellow;
+      color: $black-emerald;
+      [theme=dark] & {
+        color: $mellow-yellow;
+      }
       &:hover,
       &:active,
       &:focus {
         color: $honey-ginger;
+      }
+    }
+    .post-footer {
+      color: $black-emerald;
+      [theme=dark] & {
+        color: $buttercream;
+      }
+      a {
+        color: $black-emerald;
+        [theme=dark] & {
+          color: $buttercream;
+        }
+      }
+      .post-tags {
+        a,svg {
+          color: $black-emerald;
+          [theme=dark] & {
+            color: $buttercream;
+          }
+        }
       }
     }
   }
@@ -70,7 +128,7 @@ footer {
 
 .home {
   .home-profile {
-    padding: 0 0 1rem 0;
+    margin: 2rem 0 1rem 0;
   }
 }
 
@@ -78,3 +136,30 @@ h1 {
   margin: 0rem;
 }
 
+.single {
+  .post-meta {
+    a {
+      color: $single-link-color;
+      [theme=dark] & {
+        color: $single-link-color-dark;
+      }
+    }
+  }
+}
+
+.fixed-button {
+  color: $buttercream;
+  background: $black-emerald;
+  [theme=dark] & {
+    background: $buttercream;
+    color: $black-emerald;
+  }
+
+  svg.icon {
+    &:hover,
+    &:active,
+    &:focus {
+      color: $global-link-hover-color;
+    }
+  }
+}
