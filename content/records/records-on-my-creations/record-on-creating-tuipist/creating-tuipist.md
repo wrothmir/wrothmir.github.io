@@ -4,7 +4,7 @@ draft: true
 title: 'Creating Tuipist'
 subtitle: 'Why, & how'
 summary: 'This record is an account of my experience building, and improving my command line typing practice tool - Tuipist.'
-description: 'Reasons to create Tuipist, and how I did so.'
+description: 'Reasons to create Tuipist, and features.'
 
 date: 2024-09-21T18:04:39-07:00
 
@@ -50,6 +50,10 @@ Going down the rabbit hole of trying different keyboard layouts, I never stuck
 with any keyboard layout other than Dvorak. But I decided to try out the ISRT layout 
 recently. 
 
+{{< admonition type=info title="Fun Fact" open=false >}}
+A **tip** banner
+{{< /admonition >}}
+
 Soon, I ran into a problem. There was only one website that could help me practice the
 layout - Monkeytype. And while I am almost always connected to the internet, I wanted
 a tool that would gradually guide me through familiarizing myself with the layout, and the
@@ -64,12 +68,33 @@ So with all that out of the way, let's get started.
 
 The checkboxes that I wanted ticked for this project were:
 - [ ] A clean UI
-- [ ] Lessons to familiarize with the keys
-- [ ] Settings to allow changing keyboard layouts
-- [ ] Something that keeps track of the words per minute for the user
+- [ ] Lessons from beginner to advanced
+- [ ] Keyboard layout emulation
+- [ ] Fun exercises
+- [ ] A good selection of settings
+- [ ] WPM history tracking
 
-## The Set-up
+## The Design
 
-For the project, I chose to use Go. I had heard a lot about the bubbletea and lipgloss
-packages and wanted to try them out. Rust's RataTUI was also something I considered,
-but decided not to go ahead with it.
+Rust's RataTUI was something I considered to make the project with, but decided to use
+Go instead. I settled on using the Bubbletea and Lipgloss packages by the charmbracelet
+team.
+
+I very much like the practice pane of Monkeytype. I decided to keep to it as much as 
+possible to avoid cluttering the main page. The practice text needed to be in the center
+of the page. The optional keyboard should be below the text, and I decided to give the 
+user options to change the size of both the text and the keyboard.
+
+To keep the UI minimal and create as little distraction as possible, only the active tab 
+would be highlighted. Or the inactive tab would be dimmed.
+
+For the settings, initially, I stuck to the basics - keyboard layout, inclusion of
+punctuations, letters and modifier keys.
+
+## The Code
+
+```go {open=true, title="main.go"}
+func (m model) Update() {
+    return nil
+}
+```
