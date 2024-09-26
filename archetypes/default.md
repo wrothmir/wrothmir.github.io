@@ -7,6 +7,7 @@ summary: ''
 description: ''
 
 date: {{ .Date }}
+lastMod: {{ .Date }}
 
 author: "raikan-san"
 authorLink: "https://raikan-san.is-a.dev"
@@ -31,4 +32,7 @@ ruby: true
 fraction: true
 linkToMarkdown: true
 rssFullText: true
+enableLastMod: true
+enableWordCount: true
+enableReadingTime: true
 ---
