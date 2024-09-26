@@ -1,6 +1,13 @@
 @import url('https://fonts.googleapis.com/css?family=Fira+Mono:400,700&display=swap&subset=latin-ext');
 @import url('https://fonts.googleapis.com/css2?family=M+PLUS+Code+Latin:wght@100..700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lekton:ital,wght@0,400;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@100..900&display=swap');
+
+// ========= COLORS =========== //
+$rusty-orange: #ad330a;
+$honey-ginger: #d87818;
+$mellow-yellow: #f9dd80;
+$black-emerald: #0b1917;
 
 // ========== Global ========== //
 // Font and Line Height
@@ -22,12 +29,12 @@ $global-font-family:
   Helvetica,
   Arial,
   sans-serif;
-$global-font-size: 16px;
+$global-font-size: 18px;
 $global-font-weight: 400;
 $global-line-height: 1.5rem;
 
 // Color of the background
-$global-background-color: #122220;
+$global-background-color: $black-emerald;
 
 // Color of the text
 $global-font-color: var(--global-font-color) !default;
@@ -36,10 +43,10 @@ $global-font-color: var(--global-font-color) !default;
 $global-font-secondary-color: var(--global-font-secondary-color) !default;
 
 // Color of the link
-$global-link-color: var(--global-link-color) !default;
+$global-link-color: $mellow-yellow;
 
 // Color of the hover link
-$global-link-hover-color: var(--global-link-hover-color) !default;
+$global-link-hover-color: $honey-ginger;
 
 // Color of the border
 $global-border-color: var(--global-border-color) !default;
@@ -47,7 +54,8 @@ $global-border-color: var(--global-border-color) !default;
 
 // ========== Selection ========== //
 // Color of the selected text
-$selection-color: #f9dd80;
+$selection-color: $mellow-yellow;
+$selection-text-color: black;
 // ========== Selection ========== //
 
 // ========== Header ========== //
@@ -55,10 +63,10 @@ $selection-color: #f9dd80;
 $header-height: 3.5rem !default;
 
 // Color of the header background
-$header-background-color: #122220;
+$header-background-color: $black-emerald;
 
 // Font style of the header title
-$header-title-font-family: Lekton;
+$header-title-font-family: Lekton, monospace;
 $header-title-font-size: 1.5rem !default;
 
 // Color of the hover header item
@@ -79,10 +87,10 @@ $toc-title-font-size: 1.2rem !default;
 $toc-content-font-size: 1rem !default;
 
 // Color of the single link
-$single-link-color: var(--single-link-color) !default;
+$single-link-color: $mellow-yellow;
 
 // Color of the hover single link
-$single-link-hover-color: var(--single-link-hover-color) !default;
+$single-link-hover-color: $honey-ginger;
 
 // Color of the table background
 $table-background-color: var(--table-background-color) !default;
@@ -101,7 +109,7 @@ $blockquote-bg-color: var(--blockquote-bg-color) !default;
 $pagination-link-color: var(--pagination-link-color) !default;
 
 // Color of the hover link in pagination
-$pagination-link-hover-color: var(--pagination-link-hover-color) !default;
+$pagination-link-hover-color: $honey-ginger;
 // ========== Pagination ========== //
 
 // ========== Code ========== //
