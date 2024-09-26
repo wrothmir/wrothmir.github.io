@@ -28,10 +28,10 @@ title = "Salutations, Wanderer."
 subtitle = "I am raikan, a voyager of the digital wastelands on a journey to piece together the remnants of broken data and explore the buried truths hidden in the chaos. These are my transmissions for those listening."
 typeit = true
 social = true
-disclaimer = "Proceed with caution—what you find may be as fragmented as the world you’ve left behind."
+disclaimer = "Proceed with caution."
 
 [search]
-enable = true
+enable = false
 # type of search engine ("algolia", "fuse")
 type = "fuse"
 # max index length of the chunked content

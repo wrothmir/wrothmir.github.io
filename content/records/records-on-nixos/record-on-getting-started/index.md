@@ -16,7 +16,7 @@ tags: ["nix", "nixos"]
 categories: ["guide"]
 relative: true
 
-featuredImage: "images/featured-image.png"
+featuredImage: "/images/featured-image.png"
 featuredImagePreview: "/images/featured-image.png"
 
 images: ["/records-on-nixos/record-on-getting-started/images/featured-image.png"]
@@ -31,6 +31,9 @@ ruby: true
 fraction: true
 linkToMarkdown: true
 rssFullText: true
+enableLastMod: true
+enableWordCount: true
+enableReadingTime: true
 ---
 
 # Introduction
