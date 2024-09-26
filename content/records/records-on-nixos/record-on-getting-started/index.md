@@ -1,5 +1,5 @@
 ---
-draft: true
+draft: false
 
 title: 'Getting Started With NixOS'
 subtitle: "A gentle introduction to NixOS"
