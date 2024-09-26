@@ -1,8 +1,11 @@
 @import url('https://fonts.googleapis.com/css?family=Fira+Mono:400,700&display=swap&subset=latin-ext');
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Code+Latin:wght@100..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lekton:ital,wght@0,400;0,700;1,400&display=swap');
 
 // ========== Global ========== //
 // Font and Line Height
 $global-font-family:
+  Lekton,
   system-ui,
   -apple-system,
   BlinkMacSystemFont,
@@ -18,7 +21,7 @@ $global-font-family:
   Helvetica Neue,
   Helvetica,
   Arial,
-  sans-serif !default;
+  sans-serif;
 $global-font-size: 16px;
 $global-font-weight: 400;
 $global-line-height: 1.5rem;
@@ -27,7 +30,7 @@ $global-line-height: 1.5rem;
 $global-background-color: #122220;
 
 // Color of the text
-$global-font-color: #d87818;
+$global-font-color: var(--global-font-color) !default;
 
 // Color of the secondary text
 $global-font-secondary-color: var(--global-font-secondary-color) !default;
@@ -39,7 +42,7 @@ $global-link-color: var(--global-link-color) !default;
 $global-link-hover-color: var(--global-link-hover-color) !default;
 
 // Color of the border
-$global-border-color: #d87818;
+$global-border-color: var(--global-border-color) !default;
 // ========== Global ========== //
 
 // ========== Selection ========== //
@@ -55,11 +58,11 @@ $header-height: 3.5rem !default;
 $header-background-color: #122220;
 
 // Font style of the header title
-$header-title-font-family: $global-font-family !default;
+$header-title-font-family: Lekton;
 $header-title-font-size: 1.5rem !default;
 
 // Color of the hover header item
-$header-hover-color: #f9dd80;
+$header-hover-color: var(--header-hover-color) !default;
 $header-delimiter: var(--header-delimiter) !default;
 
 // Color of the search background
@@ -121,7 +124,7 @@ $code-info-color: var(--code-info-color) !default;
 $code-font-size: 0.875rem !default;
 
 // Font family of the code
-$code-font-family: Fira Mono, Source Code Pro, Menlo, Consolas, Monaco, monospace;
+$code-font-family: M Plus Code Latin, Fira Mono, Source Code Pro, Menlo, Consolas, Monaco, monospace;
 // $code-font-family:
 //   Source Code Pro,
 //   Menlo,
@@ -255,7 +258,7 @@ $related-hover-color: var(--related-hover-color) !default;
 // ========== related ========== //
 
 // ========== showcase ========== //
-$showcase-background-color: #122220;
+$showcase-background-color: var(--showcase-background-color) !default;
 $showcase-color: var(--showcase-color) !default;
 $showcase-hover-color: var(--showcase-hover-color) !default;
 // ========== showcase ========== //
