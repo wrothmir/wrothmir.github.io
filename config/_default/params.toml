@@ -1,4 +1,4 @@
-defaultTheme = "auto"
+defaultTheme = "light"
 gitRepo = "https://github.com/raikan-san/raikan-san.github.io"
 fingerprint = ""
 enablePWA = true
@@ -12,6 +12,10 @@ bundle = true
 name = "raikan-san"
 email = "raikan-san@proton.me"
 link = "https://raikan-san.is-a.dev"
+
+[header]
+desktopMode = "fixed"
+mobileMode = "auto"
 
 [header.title]
 logo = ""
@@ -29,6 +33,10 @@ subtitle = "I am raikan, a voyager of the digital wastelands on a journey to pie
 typeit = true
 social = true
 disclaimer = "Proceed with caution."
+
+[home.posts]
+enable = true
+paginate = 6
 
 [search]
 enable = false
@@ -76,6 +84,48 @@ hostedOn = '<a title="is-a.dev" href="https://www.is-a.dev/" target="_blank" rel
 hugo = false
 copyright = true
 author = true
-#since = 2022
+since = 2024
 icp = ""
 license = '<a rel="license external nofollow noopener noreffer" href="https://opensource.org/licenses/GPL-3.0" target="_blank">GPL-3.0</a>'
+
+[page.toc]
+enable = true
+keepStatic = false
+auto = true
+
+[page.code]
+copy = true
+maxShownLines = 50
+
+[page.math]
+enable = true
+inlineLeftDelimiter = ""
+inlineRightDelimiter = ""
+blockLeftDelimiter = ""
+blockRightDelimiter = ""
+copyTex = true
+mhchem = true
+
+[page.mapbox]
+accessToken = "pk.eyJ1IjoiZGlsbG9uenEiLCJhIjoiY2s2czd2M2x3MDA0NjNmcGxmcjVrZmc2cyJ9.aSjv2BNuZUfARvxRYjSVZQ"
+lightStyle = "mapbox://styles/mapbox/light-v10?optimize=true"
+darkStyle = "mapbox://styles/mapbox/dark-v10?optimize=true"
+navigation = true
+geolocate = true
+scale = true
+fullscreen = true
+
+[page.share]
+enable = true
+Twitter = true
+Facebook = true
+Linkedin = true
+Whatsapp = true
+Pinterest = true
+Tumblr = true
+HackerNews = false
+Reddit = true
+Pocket = true
+Evernote = true
+Trello = true
+
