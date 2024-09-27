@@ -91,9 +91,17 @@ learning resources coming up, that disadvantage no longer remains.
 
 To install NixOS, you need a bootable drive with the NixOS iso image on it. Installing 
 is as simple as plugging in the drive and booting the system from it. You can then
-follow the installation prompts and you will have your NixOS system in a few minutes.
+follow the installation prompts and you will have your NixOS system in a few minutes. You
+will need an internet connection for the setup to complete.
 
 {{< admonition type=question title="Installation stuck at 46%?" open=false >}}
 Fret not, I ran into this myself, and so have almost all the users of NixOS. Give the 
 system some time and it will jump straight to a 100!
 {{< /admonition >}}
+
+Reboot your system after removing the boot drive and you can start playing around with
+your system configuration.
+
+## Configuring NixOS
+
+

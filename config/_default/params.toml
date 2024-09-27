@@ -1,4 +1,4 @@
-defaultTheme = "light"
+defaultTheme = "auto"
 gitRepo = "https://github.com/raikan-san/raikan-san.github.io"
 fingerprint = ""
 enablePWA = true
@@ -24,6 +24,17 @@ pre = ""
 post = ""
 typeit = true
 
+[footer]
+enable = true
+custom = ""
+hostedOn = '<a title="is-a.dev" href="https://www.is-a.dev/" target="_blank" rel="noopener noreffer">is-a.dev</a>'
+hugo = false
+copyright = true
+author = true
+since = 2024
+icp = ""
+license = '<a rel="license external nofollow noopener noreffer" href="https://opensource.org/licenses/GPL-3.0" target="_blank">GPL-3.0</a>'
+
 [home.profile]
 enable = true
 gravatarEmail = "raikan-san@proton.me"
@@ -38,21 +49,24 @@ disclaimer = "Proceed with caution."
 enable = true
 paginate = 6
 
+[social]
+GitHub = "raikan-san"
+Linkedin = "vineet-pratik-agarwal"
+Stackoverflow = ""
+Steam = ""
+Mastodon = "@raikan_san"
+Ko-Fi = "raikan-san"
+Email = "raikan-san@proton.me"
+RSS = true # DoIt NEW | 0.2.0
+
 [search]
 enable = false
-# type of search engine ("algolia", "fuse")
 type = "fuse"
-# max index length of the chunked content
 contentLength = 4000
-# placeholder of the search bar
 placeholder = ""
-# DoIt NEW | 0.2.1 max number of results length
 maxResultLength = 10
-# DoIt NEW | 0.2.3 snippet length of the result
 snippetLength = 30
-# DoIt NEW | 0.2.1 HTML tag name of the highlight part in results
 highlightTag = "em"
-# DoIt NEW | 0.2.4 whether to use the absolute URL based on the baseURL in search index
 absoluteURL = false
 
 [search.fuse]
@@ -67,26 +81,16 @@ ignoreLocation = false
 useExtendedSearch = false
 ignoreFieldNorm = false
 
-[social]
-GitHub = "raikan-san"
-Linkedin = "vineet-pratik-agarwal"
-Stackoverflow = ""
-Steam = ""
-Mastodon = "@raikan_san"
-Ko-Fi = "raikan-san"
-Email = "raikan-san@proton.me"
-RSS = true # DoIt NEW | 0.2.0
-
-[footer]
-enable = true
-custom = ""
-hostedOn = '<a title="is-a.dev" href="https://www.is-a.dev/" target="_blank" rel="noopener noreffer">is-a.dev</a>'
-hugo = false
-copyright = true
-author = true
-since = 2024
-icp = ""
-license = '<a rel="license external nofollow noopener noreffer" href="https://opensource.org/licenses/GPL-3.0" target="_blank">GPL-3.0</a>'
+[page]
+hiddenFromHomePage = false
+hiddenFromSearch = false
+twemoji = true
+lightgallery = true
+ruby = true
+fraction = true
+linkToMarkdown = true
+rssFullText = false
+pageStyle = "normal"
 
 [page.toc]
 enable = true
@@ -129,3 +133,14 @@ Pocket = true
 Evernote = true
 Trello = true
 
+[app]
+title = "glitched echoes"
+noFavicon = true
+svgFavicon = "/favicons/favicon.ico"
+themeColor = "#ffffff"
+iconColor = "#5bbad5"
+tileColor = "#da532c"
+
+[compatibility]
+polyfill = true
+objectFit = true
