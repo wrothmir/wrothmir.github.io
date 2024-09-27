@@ -59,6 +59,7 @@ first system through a single command.
 {{< admonition type=note title="Fun fact" open=false >}}
 The `nix` package manager has the most packages under it's belt. It has around 55,000
 fresh packages which is about double that of the ArchLinux User Repository!
+Source: https://devops.com/nixpkgs-how-to-build-better-more-open-software/
 {{< /admonition >}}
 
 ## What is NixOS?
@@ -68,4 +69,31 @@ What makes it unique in the sea of available distributions is that the system ca
 configured in the same manner you would configure packages in the `nix` package manager.
 
 Imagine that!! Declaratively configuring your system in a functional and reproducible 
-manner!
+manner! You can configure your own hardware, software, services, and so much more,
+giving an easy way to control your system.
+
+Nix also allows you to create and manage development environments through `nix-shell` 
+which means you can do away with Docker.
+
+One of the biggest advantages of `nix` is that if you ever have a system crash due to
+any reason whatsover, and are unable to get into your system, you can always roll back
+to a previous version of your system. This gives you the freedom to experiment without
+the worry that you might end up having to reinstall your operating system and setting it
+up all over again.
+
+The one con against all it's pros is that this reproducibility and customizability comes
+at the cost of a steep learning curve, which I belive is a barrier that stops many 
+from either trying it out or sticking with NixOS long enough to feel the benefits. This is
+made worse at times by the lack of documentation and learning resources. But with more 
+learning resources coming up, that disadvantage no longer remains.
+
+## Installing NixOS
+
+To install NixOS, you need a bootable drive with the NixOS iso image on it. Installing 
+is as simple as plugging in the drive and booting the system from it. You can then
+follow the installation prompts and you will have your NixOS system in a few minutes.
+
+{{< admonition type=question title="Installation stuck at 46%?" open=false >}}
+Fret not, I ran into this myself, and so have almost all the users of NixOS. Give the 
+system some time and it will jump straight to a 100!
+{{< /admonition >}}
