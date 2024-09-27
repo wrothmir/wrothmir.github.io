@@ -9,7 +9,6 @@ defaultContentLanguage = "en"
 languageName = "English"
 
 hasCJKLanguage = false
-paginate = 12
 googleAnalytics = ""
 copyright = ""
 enableRobotsTXT = true
