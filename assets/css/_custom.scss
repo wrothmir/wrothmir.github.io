@@ -45,6 +45,14 @@ footer {
         color: $honey-ginger;
       }
     }
+    .menu {
+      a.active {
+        color: $rusty-orange;
+        [theme=dark] & {
+          color: $buttercream;
+        }
+      }
+    }
   }
 }
 
@@ -67,6 +75,12 @@ footer {
       [theme=dark] & {
         color: $global-font-color-dark;
         background: $global-background-color-dark;
+      }
+      a.active {
+        color: $rusty-orange;
+        [theme=dark] & {
+          color: $buttercream;
+        }
       }
     }
   }
@@ -94,13 +108,13 @@ footer {
     }
     .single-title a {
       color: $black-emerald;
-      [theme=dark] & {
-        color: $buttercream;
-      }
       &:hover,
       &:active,
       &:focus {
         color: $honey-ginger;
+      }
+      [theme=dark] & {
+        color: $buttercream;
       }
     }
     .post-footer {
@@ -126,13 +140,16 @@ footer {
   }
 }
 
-.home {
-  .home-profile {
-    margin: 2rem 0 1rem 0;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: $black-emerald;
+  [theme=dark] & {
+    color: $buttercream;
   }
-}
-
-h1 {
   margin: 0rem;
 }
 
@@ -142,6 +159,19 @@ h1 {
       color: $single-link-color;
       [theme=dark] & {
         color: $single-link-color-dark;
+      }
+    }
+  }
+  .content {
+    > h2,
+    > h3,
+    > h4,
+    > h5,
+    > h6 {
+      > .header-mark::before {
+        content: "|";
+        margin-right: 0.3125rem;
+        color: $honey-ginger;
       }
     }
   }
@@ -160,6 +190,28 @@ h1 {
     &:active,
     &:focus {
       color: $global-link-hover-color;
+    }
+  }
+}
+
+.archive-item-link {
+  color: $global-link-color;
+  [theme=dark] & {
+    color: $global-link-color-dark;
+  }
+}
+
+.archive {
+  color: $black-emerald;
+  [theme=dark] & {
+    color: $buttercream;
+  }
+  .tag-cloud-tags {
+    a {
+      color: $global-link-color;
+      [theme=dark] & {
+        color: $global-link-color-dark;
+      }
     }
   }
 }
