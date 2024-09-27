@@ -38,30 +38,34 @@ enableReadingTime: true
 
 # Introduction
 
-{{< mermaid >}}graph LR;
-    A[Hard edge] -->|Link text| B(Round edge)
-    B --> C{Decision}
-    C -->|One| D[Result one]
-    C -->|Two| E[Result two]
-{{< /mermaid >}}
+Linux has many many many (and many more) distributions. Needless to say, you have
+a lot of options to choose from. NixOS is one of those choices and in this article
+I will articulate my thought on why it is one of the better ones.
 
-## Something else
+## What is Nix?
 
-{{< admonition type=tip title="This is a tip" open=false >}}
-A **tip** banner
+All Linux distributions use a package manager to manage installed software on the system.
+Debian based distros use `apt`, Arch based systems use `pacman`, Fedora uses `dnf` and
+openSUSE uses `zypper` for package management. These package managers require you to 
+imperatively install packages that you would like to use, either through an app store
+or the terminal. 
+
+The `nix` package manager however, allows you to declaratively manage your packages in a 
+reproducible manner. This means that every single package can be declared in a file, and 
+the package is installed based on the configuration. You could even take the same file
+to another system that has the `nix` package manager install all the software used in the
+first system through a single command. 
+
+{{< admonition type=note title="Fun fact" open=false >}}
+The `nix` package manager has the most packages under it's belt. It has around 55,000
+fresh packages which is about double that of the ArchLinux User Repository!
 {{< /admonition >}}
 
-## Something more
+## What is NixOS?
 
-{{< typeit >}}
-This is a *paragraph* with **typing animation** based on [TypeIt](https://typeitjs.com/)...
-{{< /typeit >}}
+NixOS is a free and open source Linux distribution based on the nix package manager.
+What makes it unique in the sea of available distributions is that the system can be
+configured in the same manner you would configure packages in the `nix` package manager.
 
-{{< typeit code=java >}}
-public class HelloWorld {
-    public static void main(String []args) {
-        System.out.println("Hello World");
-    }
-}
-{{< /typeit >}}
-
+Imagine that!! Declaratively configuring your system in a functional and reproducible 
+manner!
