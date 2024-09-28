@@ -17,12 +17,6 @@ body {
   }
 }
 
-a {
-  color: $global-link-color;
-  [theme=dark] & {
-    color: $global-link-color-dark;
-  }
-}
 
 header {
   box-shadow: none;
@@ -106,28 +100,7 @@ footer {
     [theme=dark] & {
       border-bottom: 1.5px dashed $mellow-yellow;
     }
-    .single-title a {
-      color: $black-emerald;
-      &:hover,
-      &:active,
-      &:focus {
-        color: $honey-ginger;
-      }
-      [theme=dark] & {
-        color: $buttercream;
-      }
-    }
     .post-footer {
-      color: $black-emerald;
-      [theme=dark] & {
-        color: $buttercream;
-      }
-      a {
-        color: $black-emerald;
-        [theme=dark] & {
-          color: $buttercream;
-        }
-      }
       .post-tags {
         a,svg {
           color: $black-emerald;
@@ -154,14 +127,6 @@ h6 {
 }
 
 .single {
-  .post-meta {
-    a {
-      color: $single-link-color;
-      [theme=dark] & {
-        color: $single-link-color-dark;
-      }
-    }
-  }
   .content {
     > h2,
     > h3,
@@ -172,12 +137,6 @@ h6 {
         content: "|";
         margin-right: 0.3125rem;
         color: $honey-ginger;
-      }
-    }
-    a > em {
-      color: $black-emerald;
-      [theme=dark] & {
-        color: $buttercream;
       }
     }
   }
@@ -237,37 +196,6 @@ h6 {
       }
       &::before {
         color: $honey-ginger;
-      }
-    }
-  }
-}
-
-.post-footer {
-  .post-info {
-    .post-info-line {
-      .post-info-mod {
-        a.git-hash {
-          color: $black-emerald;
-          [theme=dark] & {
-            color: $buttercream;
-          }
-        }
-      }
-      .post-info-license {
-        >span:nth-child(1) >a:nth-child(1) {
-          color: $black-emerald;
-          [theme=dark] & {
-            color: $buttercream;
-          }
-        }
-      }
-      .post-info-md {
-        >span:nth-child(1) >a:nth-child(1) {
-          color: $black-emerald;
-          [theme=dark] & {
-            color: $buttercream;
-          }
-        }
       }
     }
   }
