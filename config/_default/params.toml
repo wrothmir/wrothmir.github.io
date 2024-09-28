@@ -125,13 +125,14 @@ Twitter = true
 Facebook = true
 Linkedin = true
 Whatsapp = true
-Pinterest = true
-Tumblr = true
+Mastodon = true
+Pinterest = false
+Tumblr = false
 HackerNews = false
 Reddit = true
-Pocket = true
-Evernote = true
-Trello = true
+Pocket = false
+Evernote = false
+Trello = false
 
 [app]
 title = "glitched echoes"
