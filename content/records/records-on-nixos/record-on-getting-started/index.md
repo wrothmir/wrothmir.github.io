@@ -57,9 +57,8 @@ to another system that has the `nix` package manager install all the software us
 first system through a single command. 
 
 {{< admonition type=note title="Fun fact" open=false >}}
-The `nix` package manager has the most packages under it's belt. It has around 55,000
-fresh packages which is about double that of the ArchLinux User Repository!
-Source: https://devops.com/nixpkgs-how-to-build-better-more-open-software/
+The `nix` package manager has the most packages under it's belt. It has over 100,000
+packages which is more than what the ArchLinux User Repository has!
 {{< /admonition >}}
 
 ## What is NixOS?
