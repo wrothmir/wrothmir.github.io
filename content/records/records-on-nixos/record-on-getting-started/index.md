@@ -102,6 +102,63 @@ system some time and it will jump straight to a 100!
 Reboot your system after removing the boot drive and you can start playing around with
 your system configuration.
 
+## Searching nix packages
+
+After installing nixos, you need to add packages that you wish to install. First you
+need to find the name of the package as is referenced in the nix repository. You 
+can do this in a few ways.
+
+1. Using the website 
+
+    You can open the website at [*search.nixos.org*](https://search.nixos.org) an search 
+for any packages that you wish to install. This does require an internet connection.
+
+2. Using the `nix-env -qaP` command
+
+    If you want to look up packages without an internet connection, you can follow this
+method, though it is slow and takes up a lot of memory. Once the list is open, you can
+search for the package by typing `/` followed by the package name. To exit, press *q*.
+
+3. Using the nix REPL
+
+    Start the nix REPL using the command `nix repl`. Then type `:load <nixpkgs>` when the
+prompt for nix repl appears. This will load up all the packages in the nix repository.
+Type the name of the pagkage you want to search and use tab completion to see the
+available options.
+
 ## Configuring NixOS
 
+Once you have the name of the package you want to install, open up the file at
+`/etc/nixos/configuration.nix` with admin priviledges using the following command:
 
+```bash
+sudo nano /etc/nixos/configuration.nix
+```
+
+This file may look complex right now, but you only need to bother yourself with the
+packages section for now. Press `Ctrl+F` to search for `environment.systemPackages`
+and then press enter.
+
+Here, you need to enter the name of the package you wish to install, say `neovim`. Once
+you have done that, it should look something like this:
+
+```nix
+environment.systemPackages = with pkgs; [
+    neovim
+];
+```
+
+Save this to the file using `Ctrl+x`. When prompted for the file name, press enter to
+keep the same name.
+
+You can now install your package using this command:
+
+```bash
+sudo nixos-rebuild switch
+```
+
+This command will build a new version of your system and install. You don't even need
+to reboot!
+
+When you do reboot, you will see a new version of your system in the boot menu. By
+default, the latest build that you switch to is the one that is used to boot up.
