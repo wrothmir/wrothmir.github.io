@@ -1,5 +1,5 @@
 ---
-draft: true
+draft: false
 
 title: 'Getting Started With NixOS'
 subtitle: "A gentle introduction to NixOS"
@@ -126,7 +126,7 @@ prompt for nix repl appears. This will load up all the packages in the nix repos
 Type the name of the pagkage you want to search and use tab completion to see the
 available options.
 
-## Configuring NixOS
+## Installing packages
 
 Once you have the name of the package you want to install, open up the file at
 `/etc/nixos/configuration.nix` with admin priviledges using the following command:
@@ -162,3 +162,68 @@ to reboot!
 
 When you do reboot, you will see a new version of your system in the boot menu. By
 default, the latest build that you switch to is the one that is used to boot up.
+
+## Configuring the system
+
+With NixOS, you can configure your system extensively by enabling or disabling services,
+hardware and programs. This means everything from boot configuration to network
+management is possible declaratively. You just need to know where to look.
+
+The best advice I can give you is to open up the man page for NixOS Configuration
+by using `man configuration.nix` in your terminal and search for whatever you can
+think of editing.
+
+Enabling services, hardware and more is as easy as below:
+
+```nix
+services.<service-name>.enable = true;
+hardware.<hardware-name>.enable = true;
+```
+
+where `<service-name>` and `<hardware-name>` are the name of the service and hardware
+you want to enable respectively.
+
+There might be more options you might want to configure, in which case you need to
+pass an attribute set to the element you want to configure. For example, if you want
+to configure your firewall,
+
+```nix
+networking.firewall = {
+    enable = true;
+    allowedTCPPorts = {};
+    allowedUDPPorts = {};
+}
+```
+
+To see what attributes you can configure, you need to look up the man pages, same as
+to look for what to enable.
+
+One more thing you want to note is that apart from system packages, there are also
+user packages which can only be accessed by a specific user. In the base configuration,
+it looks something like this:
+
+```nix
+users.users.raikan = {
+    isNormalUser = true;
+    description = "raikan";
+    extraGroups = [ "networkmanager" "wheel" ];
+    packages = with pkgs; [
+    ];
+    shell = pkgs.zsh;
+};
+```
+
+So you have the ability to set both system-wide and user-only installations and
+configure them how the user sees fit!
+
+## End Remarks
+
+You now have enough knowledge to get started on tinkering with NixOS. I highly
+encourage you to use NixOS and tweak the system as much as you like to get one that
+is suited perfectly to you. If you would like to learn more about Nix and NixOS, do
+go through the listed learning resources below.
+
+1. [Nix Language Basics](https://nix.dev/tutorials/nix-language)
+2. [A Tour of Nix](https://nixcloud.io/tour/?id=introduction/nix)
+3. [Nix Language Reference](https://nix.dev/manual/nix/2.18/language/)
+4. [Noogle](https://noogle.dev/)
