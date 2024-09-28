@@ -53,7 +53,7 @@ $global-link-color-dark: $buttercream;
 $global-link-hover-color: $honey-ginger;
 
 // Color of the border
-$global-border-color: var(--global-border-color) !default;
+$global-border-color: $rusty-orange;
 
 // ========== Selection ========== //
 // Color of the selected text
@@ -103,7 +103,7 @@ $table-background-color: var(--table-background-color) !default;
 
 // Color of the table thead
 $table-thead-color: var(--table-thead-color) !default;
-$table-border-color: var(--table-border-color) !default;
+$table-border-color: $rusty-orange;
 
 // Color of the blockquote
 $blockquote-color: var(--blockquote-color) !default;
