@@ -43,7 +43,7 @@ In the previous article, we saw how we can do basic configuration in NixOS. In t
 article, we will accomplish two things:
 1. Take a step back to explore understand how the Nix Ecosystem works so
 when we actually configure our system, we know what is happening under the hood.
-2. Learn why we use flakes and home-manager, and how they can be used to customize your
+2. Learn why we use flakes and home-manager, and how they can be used to customize your 
 NixOS configuration.
 
 Let's get started!
@@ -58,13 +58,13 @@ The unique way in which Nix stores the packages gives it the following advantage
 more:
 
 1. Multiple versions
-
+    
     Each program is stored separately along with its dependencies, meaning that there
     can be multiple versions of the same program without conflicting installations.
 
 2. Atomic upgrades
 
-    Upgrading a program happens atomically, meaning that a program will onl have a
+    Upgrading a program happens atomically, meaning that a program will only have a
     single version at any given time. There is no overwriting like in imperative
     package managers.
 
@@ -240,7 +240,7 @@ would be created or linked.
 
 {{< admonition type=note open=false title="Cleaning up" >}}
 Having many generations can take up a lot of space in your system. Nix does not remove
-uninstalled packages by default. It also keeps previous verisons of the packages that
+uninstalled packages by default. It also keeps previous versions of the packages that
 have been installed. This is because you can roll back to a previous generation in NixOS.
 So until you explicitly tell the package manager to get rid of the old generations, it
 won't do so.

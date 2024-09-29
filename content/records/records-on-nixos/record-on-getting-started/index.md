@@ -81,7 +81,7 @@ the worry that you might end up having to reinstall your operating system and se
 up all over again.
 
 The one con against all its pros is that this reproducibility and customizability comes
-at the cost of a steep learning curve, which I belive is a barrier that stops many
+at the cost of a steep learning curve, which I believe is a barrier that stops many
 from either trying it out or sticking with NixOS long enough to feel the benefits. This is
 made worse at times by the lack of documentation and learning resources. But with more
 learning resources coming up, that disadvantage no longer remains.
