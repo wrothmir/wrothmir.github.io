@@ -1,10 +1,10 @@
 ---
 draft: true
 
-title: 'Understanding the Nix Ecosystem'
+title: 'Advanced NixOS Customization with Nix Flakes and Home Manager'
 subtitle: ''
 summary: 'This is a deepdive into the Nix Ecosystem to understand how it works.'
-description: 'Understanding the Nix Ecosystem'
+description: 'Understanding the Nix store, Nix flakes and home manager'
 
 date: 2024-09-27T23:08:18-07:00
 lastMod: 2024-09-27T23:08:18-07:00
@@ -40,12 +40,42 @@ enableReadingTime: true
 # Introduction
 
 In the previous article, we saw how we can do basic configuration in NixOS. In this
-article, we will take a step back to explore understand how the Nix Ecosystem works so
+article, we will accomplish two things:
+1. Take a step back to explore understand how the Nix Ecosystem works so
 when we actually configure our system, we know what is happening under the hood.
+2. Learn why we use flakes and home-manager, and how they can be used to customize your
+NixOS configuration.
 
-Let's get started.
+Let's get started!
 
-## How Nix stores everything
+## The Nix Package Manager
+
+The Nix package manager is a purely functional package manager. In a functional language,
+values are immutable. Nix treats packages as values, which means that once built, these
+packages cannot be changed.
+
+The unique way in which Nix stores the packages gives it the following advantages and
+more:
+
+1. Multiple versions
+
+    Each program is stored separately along with its dependencies, meaning that there
+    can be multiple versions of the same program without conflicting installations.
+
+2. Atomic upgrades
+
+    Upgrading a program happens atomically, meaning that a program will onl have a
+    single version at any given time. There is no overwriting like in imperative
+    package managers.
+
+3. Rollbacks
+
+    As long as you have not cleaned up the previous generations, you can always roll back
+    to an old build.
+
+But how exactly is this possible?
+
+### The Nix Store
 
 A typical Linux operating system is FHS
 ([Filesystem Hierarchy Standard](https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard))
@@ -67,13 +97,14 @@ What we can see here is that these are symlinks
 ([symbolic links](https://en.wikipedia.org/wiki/Symbolic_link))
 to a file or folder in the `/nix/store` directory.
 
-The `/nix/store/` directory is referred to as the Nix Store and is where all the packages
-are stored. Nix is not FHS compliant. If we have a look at what the Nix Store contains,
+The `/nix/store/` directory is referred to as the Nix store and is where all the packages
+are stored. Nix is not FHS compliant. If we have a look at what the Nix store contains,
 we will see, depending on how many packages you have installed, a long list of files and
 folders with weird names.
 
 The name is split into a few parts like so:
 1. The hash
+
     This hash is created using all the necessary details for building the package from
     source. Everything from the sources, dependencies, compiler flags, and so on are used
     to create the hash.
@@ -85,18 +116,20 @@ The name is split into a few parts like so:
     multiple versions of the same package.
 
 2. The package name
+
     In Nix, everything from a user profile to a software package is a package. This is
     what follows the hash to make sure that there is no conflict between different
     packages.
 
 3. The package version
+
     This is the package version for the package being installed.
 
 Say we have firefox installed on our system. Installing it creates a folder in the Nix
-Store that has all the necessary binaries, libraries and such in that folder. In my
-system, the firefox folder contains the following:
+store that has all the necessary binaries, libraries and such in that folder with the
+name `<hash>-firefox-<version>`. In my system, the firefox folder contains the following:
 
-```plaintext {title="Firefox installation in my Nix Store"}
+```plaintext {title="Firefox installation in my Nix store"}
 /nix/store/8wcwfpcmd2r3bd2d4jm6w44594gjx5wc-firefox-130.0
 ├── bin
 ├── share
@@ -118,7 +151,7 @@ have a single user. What if there is another user? How do they access firefox? W
 we have another user that wants a separate version of firefox to work with? How does Nix
 differentiate between that?
 
-## User Profiles in Nix
+### User Profiles in Nix
 
 Every user in NixOS has a user profile that is stored in the `/home/$username/.nix-profile/`
 directory where `$username` is your username. We can investigate the `~/.nix-profile/`
@@ -144,13 +177,13 @@ This is the output (a bit modified to help understand easily).
 └── share@        --> /nix/store/z16q0j81dxchr2zfa4x58y...-home-manager-path/share
 ```
 
-These are symlinks to the Nix Store where different packages are stored. Because I am
-using home-manager to manage my user profile (something we will get to in the future),
+These are symlinks to the Nix store where different packages are stored. Because I am
+using home-manager to manage my user profile (something we will get to in a bit),
 I have symlinks to the latest build of home-manager which in turn contains all the folders
 that the system needs like `/bin`, `/lib`, `/opt` and so on.
 
 Let's take `/bin` in the nix-profile as an example. The content of every package that has
-a `/bin` in it's build in the Nix Store will be symlinked to the `/bin` in the
+a `/bin` in it's build in the Nix store will be symlinked to the `/bin` in the
 current build of home-manager which is then symlinked eventually to the `~/.nix-profile`.
 
 If we take a step back and investigate further, we can find that `~/.nix-profile/` is
@@ -199,7 +232,7 @@ number we saw before. If we were to switch generations to generation 9, the syml
 turn to another user environment instead.
 
 User environments are created by Nix itself, and are packages too, which is why they
-reside in the Nix Store.
+reside in the Nix store.
 
 If you were to add another user in your NixOS configuration, a new user profile would be
 created for them, and depending on what packages the new user has, the user environment
@@ -221,3 +254,17 @@ executing `nix-env --delete-generations --help`.
 
 An alternative is to use the `nix-collect-garbage` utility with the `-d` flag.
 {{< /admonition >}}
+
+## Nix Flakes
+
+Nix Flakes is an experimental feature of the Nix package manager.
+
+### Why Nix Flakes?
+
+### Using Flakes
+
+## Home Manager
+
+### Why Home Manager?
+
+### Using Home Manager
