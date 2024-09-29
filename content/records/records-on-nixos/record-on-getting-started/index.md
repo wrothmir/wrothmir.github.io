@@ -46,15 +46,15 @@ I will articulate my thought on why it is one of the better ones.
 
 All Linux distributions use a package manager to manage installed software on the system.
 Debian based distros use `apt`, Arch based systems use `pacman`, Fedora uses `dnf` and
-openSUSE uses `zypper` for package management. These package managers require you to 
+openSUSE uses `zypper` for package management. These package managers require you to
 imperatively install packages that you would like to use, either through an app store
-or the terminal. 
+or the terminal.
 
-The `nix` package manager however, allows you to declaratively manage your packages in a 
-reproducible manner. This means that every single package can be declared in a file, and 
+The `nix` package manager however, allows you to declaratively manage your packages in a
+reproducible manner. This means that every single package can be declared in a file, and
 the package is installed based on the configuration. You could even take the same file
 to another system that has the `nix` package manager install all the software used in the
-first system through a single command. 
+first system through a single command.
 
 {{< admonition type=note title="Fun fact" open=false >}}
 The `nix` package manager has the most packages under it's belt. It has over 100,000
@@ -67,11 +67,11 @@ NixOS is a free and open source Linux distribution based on the nix package mana
 What makes it unique in the sea of available distributions is that the system can be
 configured in the same manner you would configure packages in the `nix` package manager.
 
-Imagine that!! Declaratively configuring your system in a functional and reproducible 
+Imagine that!! Declaratively configuring your system in a functional and reproducible
 manner! You can configure your own hardware, software, services, and so much more,
 giving an easy way to control your system.
 
-Nix also allows you to create and manage development environments through `nix-shell` 
+Nix also allows you to create and manage development environments through `nix-shell`
 which means you can do away with Docker.
 
 One of the biggest advantages of `nix` is that if you ever have a system crash due to
@@ -81,20 +81,20 @@ the worry that you might end up having to reinstall your operating system and se
 up all over again.
 
 The one con against all it's pros is that this reproducibility and customizability comes
-at the cost of a steep learning curve, which I belive is a barrier that stops many 
+at the cost of a steep learning curve, which I belive is a barrier that stops many
 from either trying it out or sticking with NixOS long enough to feel the benefits. This is
-made worse at times by the lack of documentation and learning resources. But with more 
+made worse at times by the lack of documentation and learning resources. But with more
 learning resources coming up, that disadvantage no longer remains.
 
 ## Installing NixOS
 
-To install NixOS, you need a bootable drive with the NixOS iso image on it. Installing 
+To install NixOS, you need a bootable drive with the NixOS iso image on it. Installing
 is as simple as plugging in the drive and booting the system from it. You can then
 follow the installation prompts and you will have your NixOS system in a few minutes. You
 will need an internet connection for the setup to complete.
 
 {{< admonition type=question title="Installation stuck at 46%?" open=false >}}
-Fret not, I ran into this myself, and so have almost all the users of NixOS. Give the 
+Fret not, I ran into this myself, and so have almost all the users of NixOS. Give the
 system some time and it will jump straight to a 100!
 {{< /admonition >}}
 
@@ -104,12 +104,12 @@ your system configuration.
 ## Searching nix packages
 
 After installing nixos, you need to add packages that you wish to install. First you
-need to find the name of the package as is referenced in the nix repository. You 
+need to find the name of the package as is referenced in the nix repository. You
 can do this in a few ways.
 
-1. Using the website 
+1. Using the website
 
-    You can open the website at [*search.nixos.org*](https://search.nixos.org) an search 
+    You can open the website at [*search.nixos.org*](https://search.nixos.org) an search
 for any packages that you wish to install. This does require an internet connection.
 
 2. Using the `nix-env -qaP` command
