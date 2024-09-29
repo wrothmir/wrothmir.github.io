@@ -75,12 +75,12 @@ Nix also allows you to create and manage development environments through `nix-s
 which means you can do away with Docker.
 
 One of the biggest advantages of `nix` is that if you ever have a system crash due to
-any reason whatsover, and are unable to get into your system, you can always roll back
+any reason whatsoever, and are unable to get into your system, you can always roll back
 to a previous version of your system. This gives you the freedom to experiment without
 the worry that you might end up having to reinstall your operating system and setting it
 up all over again.
 
-The one con against all it's pros is that this reproducibility and customizability comes
+The one con against all its pros is that this reproducibility and customizability comes
 at the cost of a steep learning curve, which I belive is a barrier that stops many
 from either trying it out or sticking with NixOS long enough to feel the benefits. This is
 made worse at times by the lack of documentation and learning resources. But with more
@@ -103,7 +103,7 @@ your system configuration.
 
 ## Searching nix packages
 
-After installing nixos, you need to add packages that you wish to install. First you
+After installing NixOS, you need to add packages that you wish to install. First you
 need to find the name of the package as is referenced in the nix repository. You
 can do this in a few ways.
 
