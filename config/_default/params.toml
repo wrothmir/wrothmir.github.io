@@ -39,11 +39,11 @@ license = '<a rel="license external nofollow noopener noreffer" href="https://op
 enable = true
 gravatarEmail = "raikan-san@proton.me"
 avatarURL = ""
-title = "Salutations, Wanderer."
-subtitle = "I am raikan, a voyager of the digital wastelands on a journey to piece together the remnants of broken data and explore the buried truths hidden in the chaos. These are my transmissions for those listening."
+title = "Salutations, Voyagers."
+subtitle = "I am Raikan, a wayfarer traversing the digital wastelands in search of hidden truths buried deep within the chaos. These words are for those who seek to uncover the unknown, so they may forge a brighter world from the shadows."
 typeit = true
 social = true
-disclaimer = "Proceed with caution."
+disclaimer = "This spark of knowledge may forever change your view of the world. Tread wisely."
 
 [home.posts]
 enable = true

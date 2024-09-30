@@ -101,7 +101,7 @@ system some time and it will jump straight to a 100!
 Reboot your system after removing the boot drive and you can start playing around with
 your system configuration.
 
-## Searching nix packages
+## Searching Nix packages
 
 After installing NixOS, you need to add packages that you wish to install. First you
 need to find the name of the package as is referenced in the nix repository. You
@@ -125,7 +125,7 @@ prompt for nix repl appears. This will load up all the packages in the nix repos
 Type the name of the pagkage you want to search and use tab completion to see the
 available options.
 
-## Installing packages
+## Installing Packages
 
 Once you have the name of the package you want to install, open up the file at
 `/etc/nixos/configuration.nix` with admin priviledges using the following command:
@@ -162,7 +162,7 @@ to reboot!
 When you do reboot, you will see a new version of your system in the boot menu. By
 default, the latest build that you switch to is the one that is used to boot up.
 
-## Configuring the system
+## Configuring the System
 
 With NixOS, you can configure your system extensively by enabling or disabling services,
 hardware and programs. This means everything from boot configuration to network
