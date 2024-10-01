@@ -9,9 +9,9 @@ images = []
 bundle = true
 
 [author]
-name = "raikan-san"
-email = "raikan-san@proton.me"
-link = "https://raikan-san.is-a.dev"
+name = "raikan"
+email = "raikan.dev@proton.me"
+link = "https://raikan.is-a.dev"
 
 [header]
 desktopMode = "fixed"
@@ -37,7 +37,7 @@ license = '<a rel="license external nofollow noopener noreffer" href="https://op
 
 [home.profile]
 enable = true
-gravatarEmail = "raikan-san@proton.me"
+gravatarEmail = "raikan.dev@proton.me"
 avatarURL = ""
 title = "Salutations, Voyagers."
 subtitle = "I am Raikan, a wayfarer traversing the digital wastelands in search of hidden truths buried deep within the chaos. These words are for those who seek to uncover the unknown, so they may forge a brighter world from the shadows."
@@ -54,9 +54,9 @@ GitHub = "raikan-san"
 Linkedin = "vineet-pratik-agarwal"
 Stackoverflow = ""
 Steam = ""
-Mastodon = "@raikan_san"
-Ko-Fi = "raikan-san"
-Email = "raikan-san@proton.me"
+Mastodon = "@raikan"
+Ko-Fi = "raikan"
+Email = "raikan.dev@proton.me"
 RSS = true # DoIt NEW | 0.2.0
 
 [search]
