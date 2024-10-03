@@ -261,7 +261,9 @@ Nix Flakes is an experimental feature of the Nix package manager.
 
 ### Why Nix Flakes?
 
-### Using Flakes
+### Using Flakes for System Configuration
+
+### Using Flakes for Development Environments
 
 ## Home Manager
 
