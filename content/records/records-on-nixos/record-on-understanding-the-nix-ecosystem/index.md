@@ -9,8 +9,8 @@ description: 'Understanding the Nix store, Nix flakes and home manager'
 date: 2024-09-27T23:08:18-07:00
 lastMod: 2024-09-27T23:08:18-07:00
 
-author: "raikan"
-authorLink: "https://raikan.is-a.dev"
+author: "fenrir"
+authorLink: "https://fenrir.is-a.dev"
 license: "<a rel='license external nofollow noopener noreffer' href='https://opensource.org/licenses/GPL-3.0' target='_blank'>GPL-3.0</a>"
 
 tags: ["nix", "nixos"]
@@ -191,13 +191,13 @@ itself a symlink. Let us confirm this with the handy readlink tool.
 
 ```bash
 $ readlink ~/.nix-profile
-> /home/raikan/.local/state/nix/profiles/profile
+> /home/fenrir/.local/state/nix/profiles/profile
 ```
 
 Let's follow the link further.
 
 ```bash
-$ readlink /home/raikan/.local/state/nix/profiles/profile
+$ readlink /home/fenrir/.local/state/nix/profiles/profile
 > profile-10-link
 ```
 
@@ -208,10 +208,10 @@ a *user environment*.
 We can see this if we do the following:
 
 ```bash
-$ ls -l /home/raikan/.local/state/nix/profiles/profile*
-> lrwxrwxrwx ... /home/raikan/.local/state/nix/profiles/profile -> profile-10-link
-> lrwxrwxrwx ... /home/raikan/.local/state/nix/profiles/profile-10-link -> /nix/store/y1kd48az840d123lv5lllfk7mgc8ndb1-user-environment
-> lrwxrwxrwx ... /home/raikan/.local/state/nix/profiles/profile-9-link -> /nix/store/9yp3731lgf0cn2k2ddbx9kbqc3h9wjsb-user-environment
+$ ls -l /home/fenrir/.local/state/nix/profiles/profile*
+> lrwxrwxrwx ... /home/fenrir/.local/state/nix/profiles/profile -> profile-10-link
+> lrwxrwxrwx ... /home/fenrir/.local/state/nix/profiles/profile-10-link -> /nix/store/y1kd48az840d123lv5lllfk7mgc8ndb1-user-environment
+> lrwxrwxrwx ... /home/fenrir/.local/state/nix/profiles/profile-9-link -> /nix/store/9yp3731lgf0cn2k2ddbx9kbqc3h9wjsb-user-environment
 ```
 
 The `profile-10-link` symlink refers to a user environment that contains what we saw in
@@ -228,7 +228,7 @@ $ nix-env --list-generations
 
 We see that I have my current generation as 10, which is the same as the generation
 number we saw before. If we were to switch generations to generation 9, the symlink
-`/home/raikan/.local/state/nix/profiles/profile` would point to `profile-9-link`, and in
+`/home/fenrir/.local/state/nix/profiles/profile` would point to `profile-9-link`, and in
 turn to another user environment instead.
 
 User environments are created by Nix itself, and are packages too, which is why they

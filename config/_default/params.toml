@@ -1,5 +1,5 @@
 defaultTheme = "auto"
-gitRepo = "https://github.com/raikan-san/raikan-san.github.io"
+gitRepo = "https://github.com/fenrir-san/fenrir-san.github.io"
 fingerprint = ""
 enablePWA = true
 dateFormat = "2006-01-02"
@@ -9,9 +9,9 @@ images = []
 bundle = true
 
 [author]
-name = "raikan"
-email = "raikan.dev@proton.me"
-link = "https://raikan.is-a.dev"
+name = "fenrir"
+email = "fenrir.dev@tutamail.me"
+link = "https://fenrir.is-a.dev"
 
 [header]
 desktopMode = "fixed"
@@ -37,10 +37,10 @@ license = '<a rel="license external nofollow noopener noreffer" href="https://op
 
 [home.profile]
 enable = true
-gravatarEmail = "raikan.dev@proton.me"
+gravatarEmail = "fenrir.dev@tutamail.me"
 avatarURL = ""
 title = "Salutations, Voyagers."
-subtitle = "I am Raikan, a wayfarer traversing the digital wastelands in search of hidden truths buried deep within the chaos. These words are for those who seek to uncover the unknown, so they may forge a brighter world from the shadows."
+subtitle = "I am Fenrir, a wayfarer traversing the digital wastelands in search of hidden truths buried deep within the chaos. These words are for those who seek to uncover the unknown, so they may forge a brighter world from the shadows."
 typeit = true
 social = true
 disclaimer = "May the knowledge that rests here change your view of the unseen world."
@@ -50,13 +50,13 @@ enable = true
 paginate = 6
 
 [social]
-GitHub = "raikan-san"
+GitHub = "fenrir-san"
 Linkedin = "vineet-pratik-agarwal"
 Stackoverflow = ""
 Steam = ""
-Mastodon = "@raikan_dev"
-Ko-Fi = "raikan"
-Email = "raikan.dev@proton.me"
+Mastodon = "@fenrir-san"
+Ko-Fi = "fenrir"
+Email = "fenrir.dev@tutamail.me"
 RSS = true # DoIt NEW | 0.2.0
 
 [search]

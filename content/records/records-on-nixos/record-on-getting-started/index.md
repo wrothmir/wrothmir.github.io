@@ -8,8 +8,8 @@ description: "Installing NixOS and basic configuration."
 
 date: 2024-09-21T01:06:33-07:00
 
-author: "raikan"
-authorLink: "https://raikan.is-a.dev"
+author: "fenrir"
+authorLink: "https://fenrir.is-a.dev"
 license: "<a rel='license external nofollow noopener noreffer' href='https://opensource.org/licenses/GPL-3.0' target='_blank'>GPL-3.0</a>"
 
 tags: ["nix", "nixos"]
@@ -202,9 +202,9 @@ user packages which can only be accessed by a specific user. In the base configu
 it looks something like this:
 
 ```nix
-users.users.raikan = {
+users.users.fenrir = {
     isNormalUser = true;
-    description = "raikan";
+    description = "fenrir";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
     ];
