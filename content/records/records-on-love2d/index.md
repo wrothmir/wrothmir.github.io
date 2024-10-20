@@ -1,5 +1,5 @@
 ---
-draft: false
+draft: true
 
 title: 'Creating a Camera in LÖVE'
 subtitle: ''
@@ -17,8 +17,8 @@ tags: ["löve", "game-dev", "lua"]
 categories: ["deepdive"]
 relative: true
 
-featuredImage: ""
-featuredImagePreview: ""
+featuredImage: "images/initial-world-and-camera-position.png"
+featuredImagePreview: "images/initial-world-and-camera-position.png"
 
 images: [""]
 toc:
@@ -57,8 +57,7 @@ Let us visualize what moving the game world really means. Say the world is
 located at (x, y) = (0, 0). These are the coordinates of the `world_origin`.
 Initially, let us have our `camera_location` also located at this position.
 
-{{< image src="./images/initial-world-and-camera-position.png" >}}
-![Initial World and Camera positions](./images/initial-world-and-camera-position.png)
+![Initial World and Camera positions](./images/initial-world-and-camera-position.png "Initial World and Camera Positions")
 
 The viewport of our screen (or our camera) is fixed. The question is, how exactly
 do we move the world to give the illusion that the camera is moving?
