@@ -225,6 +225,7 @@ done, we need to create a few helper methods.
 
 ```lua {title="The Camera library"}
 local love = require("love")
+
 local Camera = { }
 Camera.__index = Camera
 
@@ -262,7 +263,8 @@ return Camera
 Camera is now a class which has a few fields and methods. You could choose not
 to create a class but I prefer to and so I've made it into one.
 
-The `target` now holds a reference to the target that we want to track, and the
+We create a new Camera instance by using the `Camera:new()` method.
+`Camera.target` now holds a reference to the target that we want to track, and the
 target has to be manually attached once.
 
 The `Camera:update()` method has the logic for calculating the distance to
@@ -270,3 +272,150 @@ move the world to get the target in the center.
 
 `Camera:set()` and `Camera:unset()` can now be used to apply transforms, draw
 our sprites, and then unset the transformations.
+
+## Implementing Damping
+
+Damping, simply put, is the smooth movement of the camera instead of jerky motions.
+In physics, damping is the loss of energy of an oscillating system. Here, we
+will initially model it as a linear system, but also take a look at oscillating
+systems later.
+
+### Linear Interpolation
+
+To dampen our camera movement each update, we can use the calculated difference
+between the target and the camera center, subtract the camera position to get the
+delta (the distance between the target and the camera center), multiply it with
+a damping factor, and then add it to our current camera coordinates.
+
+\[x = x + ( (x_t - cameraWidth/2) - x ) * dampingFactor\]
+\[y = y + ( (y_t - cameraWidth/2) - y ) * dampingFactor\]
+
+This is similar to the equation for Linear Interpolation:
+
+\[y = x + (a - x) * b \]
+where b is the interpolation factor, a is the destination, and x and y are the
+current position and new position respectively.
+
+Here is the updated code for the `Camera:update()` function to utilize this
+interpolation.
+
+```lua {title="Linear Interpolation Damping"}
+function Camera:new()
+  ...
+  o.damping = 0.1
+  return o
+end
+
+function Camera:update()
+  self._x = self._x + ( (self.target.x - self.width/2) - self._x ) * self.damping
+  self._y = self._y + ( (self.target.y - self.height/2) - self._y ) * self.damping
+end
+```
+
+The closer the value of `damping` is to 1, the faster the camera
+moves, and subsequently, the farther away the value is from 1, the slower it
+moves. You can change the value of the damping factor to try out what feels
+good for your game.
+
+This current setup however, is not frame-independent, which means that on a
+machine with a faster frame rate, the camera will reach its destination faster.
+To make the damping equation factor this in, we can use delta time (`dt`) which
+is the time passed between two consecutive frames.
+
+Multiplying this along with the damping factor makes our update function
+frame-independent. At higher frame rates, `dt` is smaller and so is the product
+of `damping` and `dt`, and lower frame rates `dt` is larger, which keeps the
+damping consistent over time.
+
+![Linear Interpolation](./images/lerp.png "Linear Interpolation Function")
+
+As a consequence of this multiplication, we need to increase the value of
+`damping` to make sure that the product does not become too small.
+
+```lua {title="Linear Interpolation Damping (Frame Independent)"}
+function Camera:new()
+  ...
+  o.damping = 4
+  return o
+end
+
+function Camera:update(dt)
+  self._x = self._x + ( (self.target.x - self.width/2) - self._x ) * self.damping * dt
+  self._y = self._y + ( (self.target.y - self.height/2) - self._y ) * self.damping * dt
+end
+```
+
+Of course, you can go further and have different damping values for both the axes
+if you feel like it!
+
+What we just implemented was damping using *Linear Interpolation*, more commonly
+known as *lerp*. There are many more ways you can rig the camera to dampen
+movement. Let's have a look at some more of them.
+
+### Exponential Decay Damping
+
+In this approach, the camera initially moves at higher speeds and then slows
+down exponentially as it reaches the target location. It is similar to lerp,
+but instead of multiplying directly by damping, we multiply the delta by
+a negative exponent of damping subtracted from 1.
+
+\[ y = x + (b - x) * (1 - e^{-x}) \]
+
+![Exponential Decay](./images/exp_decay.png "Exponential Decay Function (exaggerated)")
+
+To make this frame-independent, we multiply `damping` by `dt`.
+
+```lua {title="Exponential Decay Damping (Frame Independent)"}
+function Camera:update(dt)
+  self._x = self._x + ( (self.target.x - self.width/2) - self._x ) * (1 - math.exp(self.damping * dt))
+  self._y = self._y + ( (self.target.y - self.height/2) - self._y ) * (1 - math.exp(self.damping * dt))
+end
+```
+
+We have a couple of problems here though.
+
+1. First up, as the distance gets smaller, the steps we take to reach the target
+become infinitesimally small, so small that the camera may appear to be jerky
+between steps.
+
+2. Secondly, unless the delta reaches exactly zero, which is unlikely, the calculation
+will go on forever even if we stop moving our character, at times crossing zero
+and becoming negative.
+
+To fix this, we can set a threshold that enforces a limit on how small the
+steps can be.
+
+```lua {title="Threshold-Capped Exponential Decay Damping (Frame Independent)"}
+function Camera:new()
+  ...
+  o.damping = 4
+  o.damping_threshold= 5
+  return o
+end
+
+function Camera:update(dt)
+  local x = self.target.x - self.width/2
+  local y = self.target.y - self.height/2
+
+  local delta_x = x - self._x
+  local delta_y = y - self._y
+
+  local factor = 1 - math.exp(-self.damping * dt)
+
+  if (delta_x * factor) < self.damping_threshold then
+    self._x = x
+  else
+    self._x = self._x + delta_x * factor
+  end
+
+  if (delta_y * factor) < self.damping_threshold then
+    self._y = y
+  else
+    self._y = self._y + delta_y * factor
+  end
+end
+```
+
+With these improvements, we avoid unnecessary calculation and increase performance.
+You can change the curve of damping by messing around with the factor to get the
+desired smoothness.
