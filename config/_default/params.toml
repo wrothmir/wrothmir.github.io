@@ -103,10 +103,10 @@ maxShownLines = 50
 
 [page.math]
 enable = true
-inlineLeftDelimiter = ""
-inlineRightDelimiter = ""
-blockLeftDelimiter = ""
-blockRightDelimiter = ""
+blockLeftDelimiter = '\['
+blockRightDelimiter = '\]'
+inlineLeftDelimiter = '\('
+inlineRightDelimiter = '\)'
 copyTex = true
 mhchem = true
 

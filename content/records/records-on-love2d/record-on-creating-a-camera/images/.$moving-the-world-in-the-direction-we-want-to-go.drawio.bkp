@@ -1,0 +1,31 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.7.17 Chrome/128.0.6613.162 Electron/32.1.2 Safari/537.36" version="24.7.17">
+  <diagram name="Page-1" id="so2G5YLaejn2webT6s7b">
+    <mxGraphModel dx="819" dy="568" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="6v2r7UdW3RT57bt3eFbI-2" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#0D1017;strokeColor=none;container=0;" parent="1" vertex="1">
+          <mxGeometry width="840" height="560" as="geometry" />
+        </mxCell>
+        <mxCell id="6v2r7UdW3RT57bt3eFbI-3" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#CC0000;container=0;" parent="1" vertex="1">
+          <mxGeometry x="160" y="160" width="600" height="320" as="geometry" />
+        </mxCell>
+        <mxCell id="6v2r7UdW3RT57bt3eFbI-4" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#FFF2CC;container=0;" parent="1" vertex="1">
+          <mxGeometry x="80" y="80" width="330" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="6v2r7UdW3RT57bt3eFbI-5" value="Camera (x,y) = (0,0)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=JetBrainsMono Nerd Font;container=0;" parent="1" vertex="1">
+          <mxGeometry x="80" y="80" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="6v2r7UdW3RT57bt3eFbI-6" value="World (x,y) = (x1,y1)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=JetBrainsMono Nerd Font;container=0;" parent="1" vertex="1">
+          <mxGeometry x="160" y="160" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="8pQGRrOZtDv4NErkhJc3-1" value="" style="shape=mxgraph.sysml.x;container=0;" vertex="1" parent="1">
+          <mxGeometry x="640" y="400" width="10" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="8pQGRrOZtDv4NErkhJc3-3" value="Target" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=JetBrainsMono Nerd Font;" vertex="1" parent="1">
+          <mxGeometry x="650" y="390" width="60" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
