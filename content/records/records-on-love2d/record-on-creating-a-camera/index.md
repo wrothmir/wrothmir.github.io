@@ -17,7 +17,7 @@ tags: ["löve", "game-dev", "lua"]
 categories: ["deepdive"]
 relative: true
 
-featuredImage: "images/initial-world-and-camera-positions.png"
+featuredImage: "images/test.webp"
 featuredImagePreview: "images/initial-world-and-camera-positions.png"
 
 images: [""]
@@ -138,12 +138,14 @@ Assuming that we want the target to be in the center of the camera at all times,
 we can calculate the distance of the target from the camera center and use that
 to move the world.
 
-![](./images/distance-to-move-to-center-the-target.png)
+![Distance from the target](./images/distance-to-move-to-center-the-target.png "Distance to move the Camera to get Target in the center")
 
 The units of x (or pixels) the world needs to be moved to get the target in the
 center are
 \[ x = x_t - cameraWidth/2 \]
 \[ y = y_t - cameraHeight/2 \]
+
+![After moving the World to the center the Target in the Camera](./images/world-and-camera-after-moving-target-to-the-center.png "After moving the World to the center the Target in the Camera")
 
 If the Camera's width and height are the same as that of the screen, we can
 get those values in our `update` loop as follows:
@@ -208,7 +210,8 @@ end
 ```
 
 Now when we run the code, we can see that the target stays in the center of the
-Camera and is actually moving around the World!
+Camera and is actually moving around the World (or rather the World is moving
+to keep the target in the center of the Camera)!
 
 --TODO: Add image/gif here.
 
@@ -288,13 +291,13 @@ delta (the distance between the target and the camera center), multiply it with
 a damping factor, and then add it to our current camera coordinates.
 
 \[x = x + ( (x_t - cameraWidth/2) - x ) * dampingFactor\]
-\[y = y + ( (y_t - cameraWidth/2) - y ) * dampingFactor\]
+\[y = y + ( (y_t - cameraHeight/2) - y ) * dampingFactor\]
 
 This is similar to the equation for Linear Interpolation:
 
 \[y = x + (a - x) * b \]
-where b is the interpolation factor, a is the destination, and x and y are the
-current position and new position respectively.
+where \(b\) is the interpolation factor, \(a\) is the destination, and \(x\)
+and \(y\) are the current position and new position respectively.
 
 Here is the updated code for the `Camera:update()` function to utilize this
 interpolation.
@@ -332,7 +335,7 @@ damping consistent over time.
 As a consequence of this multiplication, we need to increase the value of
 `damping` to make sure that the product does not become too small.
 
-```lua {title="Linear Interpolation Damping (Frame Independent)"}
+```lua {title="Linear Interpolation Damping (Frame-Rate Independent)"}
 function Camera:new()
   ...
   o.damping = 4
@@ -365,7 +368,7 @@ a negative exponent of damping subtracted from 1.
 
 To make this frame-independent, we multiply `damping` by `dt`.
 
-```lua {title="Exponential Decay Damping (Frame Independent)"}
+```lua {title="Exponential Decay Damping (Frame-Rate Independent)"}
 function Camera:update(dt)
   self._x = self._x + ( (self.target.x - self.width/2) - self._x ) * (1 - math.exp(self.damping * dt))
   self._y = self._y + ( (self.target.y - self.height/2) - self._y ) * (1 - math.exp(self.damping * dt))
@@ -375,8 +378,8 @@ end
 We have a couple of problems here though.
 
 1. First up, as the distance gets smaller, the steps we take to reach the target
-become infinitesimally small, so small that the camera may appear to be jerky
-between steps.
+become infinitesimally small, so small that the camera motion may appear to be
+jerky between steps.
 
 2. Secondly, unless the delta reaches exactly zero, which is unlikely, the calculation
 will go on forever even if we stop moving our character, at times crossing zero
@@ -385,7 +388,7 @@ and becoming negative.
 To fix this, we can set a threshold that enforces a limit on how small the
 steps can be.
 
-```lua {title="Threshold-Capped Exponential Decay Damping (Frame Independent)"}
+```lua {title="Threshold-Capped Exponential Decay Damping (Frame-Rate Independent)"}
 function Camera:new()
   ...
   o.damping = 4
@@ -417,5 +420,128 @@ end
 ```
 
 With these improvements, we avoid unnecessary calculation and increase performance.
-You can change the curve of damping by messing around with the factor to get the
-desired smoothness.
+You can change the curve of damping by tweaking the factor to get the desired
+smoothness.
+
+### Under Damped Spring System
+
+We've all seen springs and how they oscillate when a force is applied. We use
+that as the basis here and treat any camera movement as a spring. The actual
+equation the movement of the spring in an ideal system is as follows:
+
+\[ p = Acos(\omega t) \]
+
+where \(p\) is the position of the spring, \(A\) is the amplitude, \(\omega\) is the
+angular frequency, and \(t\) is time.
+
+Note that this is for an ideal system and would not end up slowing down over
+time. It does not account for the damping and velocity, which is something
+we need to create the smooth camera motion that we are looking for.
+
+To fix this, the equation needs to be modified. Without going into the details
+and turning this into a Physics class, the new equations would be:
+
+\[ v = v + \left(\frac{-k * (x-x_{target}) - c * v}{m}\right) * t \]
+
+where \(v\) is the velocity, \(k\) is the stiffness, \(x\) is the current position,
+\(c\) is the damping factor, \(m\) is the mass and \(t\) is the time. For
+simplicity, we can take the mass to be 1.
+
+We then use this velocity to calculate the new value of \(x\).
+
+\[ x = x + v * t \]
+
+-- TODO: Add graphs
+
+In each time frame, we reduce the velocity slightly using the damping factor,
+eventually making the value of \(x\) reach \(x_{target}\). If we remove the
+reduction of velocity because of the damping factor, the camera will keep on
+oscillating and never come to a stop. You can try this out by setting the
+damping factor to zero in the code below.
+
+The issue we experienced with exponential decay is also present here, so we
+need to cap the values to prevent calculations when the positional difference
+is infinitesimally small.
+
+```lua {title="Under Damped Spring System (Frame-Rate Independent)"}
+function Camera:new()
+  o.velocityX = 0 -- Initialize velocity for X
+  o.velocityY = 0 -- Initialize velocity for Y
+  o.threshold = 0.01 -- Threshold to prevent infinite calculations
+  o.stiffness = 10 -- Spring stiffness (k)
+  o.mass = 1 -- Mass of the spring (m)
+  o.damping = 2 -- Damping coefficient (c)
+end
+
+function Camera:update(dt)
+  local x = self.target.x - self.width / 2
+  local y = self.target.y - self.height / 2
+
+  local delta_x = self._x - x
+  local delta_y = self._y - y
+
+  if math.abs(delta_x) > self.threshold then
+    -- Spring-damping update for X-axis
+    local force_x = -self.stiffness * delta_x
+    local damping_x = -self.damping * self.velocity_x
+    self.velocity_x = self.velocity_x + ((force_x + damping_x)/self.mass) * dt
+    self._x = self._x + self.velocity_x * dt
+  else
+    self._x = x
+    self.velocity_x = 0
+  end
+
+  if math.abs(delta_x) > self.threshold then
+    -- Spring-damping update for Y-axis
+    local force_y = -self.stiffness * delta_y
+    local damping_y = -self.damping * self.velocity_y
+    self.velocity_y = self.velocity_y + ((force_y + damping_y)/self.mass) * dt
+    self._y = self._y + self.velocity_y * dt
+  else
+    self._y = y
+    self.velocity_y = 0
+  end
+end
+```
+
+You can play with the spring stiffness and the damping factor to get the result
+you desire. For the same `damping`, the higher the `stiffness`, the more
+oscillations take place. For the same `stiffness`, the higher the `damping`,
+the more the loss in force per oscillation. If you want more control over the
+camera movement, you can increase the `mass` to get slower oscillations and
+decrease it to get faster oscillations. Keep in mind that `mass` won't change
+the number of oscillations or how much energy is lost in each oscillation.
+
+### Critically Damped Spring System
+
+A critically damped spring has a specific damping coefficient which makes it
+reach the target as soon as possible without oscillating. The value of the
+damping coefficient has to conform to the following equation to achieve this.
+
+\[ c = 2 * \sqrt{ k * m } \]
+
+-- TODO: Add graphs
+
+Therefore, the only change that we need to make to simulate this behavior is:
+
+```lua {title="Critically Damped Spring System (Frame-Rate Independent)"}
+function Camera:new()
+  o.velocityX = 0 -- Initialize velocity for X
+  o.velocityY = 0 -- Initialize velocity for Y
+  o.threshold = 0.01 -- Threshold to prevent infinite calculations
+  o.stiffness = 10 -- Spring stiffness (k)
+  o.mass = 1 -- Mass of the spring (m)
+  o.damping = 2 * math.sqrt(o.stiffness * o.mass)-- Damping coefficient (c)
+end
+```
+
+With this small change, we can make the camera stop at the target without
+oscillations!
+
+### SmoothDamp
+
+## Deadzones
+
+## Look-ahead
+
+## Camera Bounds
