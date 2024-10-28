@@ -213,7 +213,7 @@ Now when we run the code, we can see that the target stays in the center of the
 Camera and is actually moving around the World (or rather the World is moving
 to keep the target in the center of the Camera)!
 
---TODO: Add image/gif here.
+--TODO: Add gif here.
 
 We now have our basic Camera setup!
 
@@ -351,6 +351,8 @@ end
 Of course, you can go further and have different damping values for both the axes
 if you feel like it!
 
+--TODO: Add gif here.
+
 What we just implemented was damping using *Linear Interpolation*, more commonly
 known as *lerp*. There are many more ways you can rig the camera to dampen
 movement. Let's have a look at some more of them.
@@ -419,6 +421,8 @@ function Camera:update(dt)
 end
 ```
 
+--TODO: Add gif here.
+
 With these improvements, we avoid unnecessary calculation and increase performance.
 You can change the curve of damping by tweaking the factor to get the desired
 smoothness.
@@ -451,7 +455,7 @@ We then use this velocity to calculate the new value of \(x\).
 
 \[ x = x + v * t \]
 
--- TODO: Add graphs
+![Under Damped Spring System (Position vs Time)](./images/under-damped-spring.png "Under Damped Spring System (Position vs Time)")
 
 In each time frame, we reduce the velocity slightly using the damping factor,
 eventually making the value of \(x\) reach \(x_{target}\). If we remove the
@@ -504,6 +508,8 @@ function Camera:update(dt)
 end
 ```
 
+--TODO: Add gif here.
+
 You can play with the spring stiffness and the damping factor to get the result
 you desire. For the same `damping`, the higher the `stiffness`, the more
 oscillations take place. For the same `stiffness`, the higher the `damping`,
@@ -520,7 +526,7 @@ damping coefficient has to conform to the following equation to achieve this.
 
 \[ c = 2 * \sqrt{ k * m } \]
 
--- TODO: Add graphs
+![Critically Damped Spring System (Position vs Time)](./images/critically-damped-spring.png "Critically Damped Spring System (Position vs Time)")
 
 Therefore, the only change that we need to make to simulate this behavior is:
 
@@ -538,10 +544,136 @@ end
 With this small change, we can make the camera stop at the target without
 oscillations!
 
+--TODO: Add gif here.
+
 ### SmoothDamp
+
+Smooth Damp is an interpolation method that is used frequently in game dev,
+particularly for smoothly stepping over positions or rotations over time. It
+is similar to the Critically Damped Spring system but is implemented with
+different equations. Below is the code from
+[Unity's CS Reference](https://github.com/Unity-Technologies/UnityCsReference/blob/61f92bd79ae862c4465d35270f9d1d57befd1761/Runtime/Export/Math/Mathf.cs#L303)
+in lua.
+
+```lua {title="Unity's Smooth Damp Function"}
+local function smoothDamp(current, target, velocity, smoothTime, maxSpeed, deltaTime)
+  -- Ensure smoothTime is not too small
+  smoothTime = math.max(0.0001, smoothTime)
+  local omega = 2.0 / smoothTime
+
+  -- Calculate the exponential decay factor
+  local x = omega * deltaTime
+  local exp = 1.0 / (1.0 + x + 0.48 * x ^ 2 + 0.235 * x ^ 3)
+
+  -- Calculate the difference between current and target
+  local change = current - target
+  local originalTo = target
+
+  -- Clamp the maximum speed (maxChange)
+  local maxChange = maxSpeed * smoothTime
+  change = math.max(-maxChange, math.min(change, maxChange))
+
+  -- Update target based on the clamped change
+  target = current - change
+
+  -- Calculate the new velocity
+  local temp = (velocity + omega * change) * deltaTime
+  velocity = (velocity - omega * temp) * exp
+
+  -- Calculate the new position
+  local output = target + (change + temp) * exp
+
+  -- Prevent overshooting the target
+  if (originalTo - current > 0) == (output > originalTo) then
+    output = originalTo
+    velocity = (output - originalTo) / deltaTime
+  end
+
+  return output, velocity
+end
+```
+
+We see here that is follows the same idea of modifying the velocity and using
+it to update the position of the camera. The target in our case would
+be `self.target.x - self.width/2` and `self.target.y - self.height/2`.
+
+```lua {title="Smooth Damp Update Call"}
+function Camera:update(dt)
+  self._x, self.velocity_x = smoothDamp(
+    self._x,
+    self.target.x - self.width / 2,
+    self.velocity_x,
+    0.3,
+    75,
+    dt
+  )
+  self._y, self.velocity_y = smoothDamp(
+    self._y,
+    self.target.x - self.height / 2,
+    self.velocity_y,
+    0.3,
+    50,
+    dt
+  )
+end
+```
+
+The Smooth Damp interpolation method provides us with good control over the
+camera movement without having to configure a lot of parameters and dealing
+with the physics of things.
+
+-- TODO: Add gif here
+
+With this, you are well equipped to get a smoothly moving camera! Now we move
+onto the next part of a good game camera, the Deadzones.
+
+## Screen Shake
+
+## Camera Bounds
+
+## Camera Zoom
+
+## Camera Rotation
+
+## World to Camera Coordinates
+
+## Camera to World Coordinates
 
 ## Deadzones
 
+Deadzones are, simply put, regions in which the target can move without the
+camera moving to track it. Why are deadzones necessary? If you have the camera
+tracking a target, readjusting the position at every small movement of the target
+can become annoying, sometimes even nauseating or disorienting. This can be
+avoided by implementing deadzones.
+
+![Camera with a Deadzone](./images/deadzone-1.png "Camera with a Deadzone")
+
+To implement a deadzone, we need to know what area of the camera the target
+is free to roam in. Having the ability to turn the deadzone on and off makes
+the camera more robust, so lets add a field to keep track of that.
+
+```lua {title="Deadzone Table for the Camera"}
+function Camera:new()
+  ...
+  o.deadzone = {
+    enable = false,
+    x = nil,
+    y = nil,
+    w = nil,
+    h = nil,
+  }
+end
+```
+
+With this, we can now check if the target is in the deadzone or not and update
+the world translation accordingly.
+
+```lua {title="Guard for World translation update"}
+function Camera:update(dt)
+end
+```
+
 ## Look-ahead
 
-## Camera Bounds
+## Camera for non-target scenarios

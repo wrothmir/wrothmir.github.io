@@ -1,0 +1,111 @@
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1200" height="800">
+  <defs/>
+  <g transform="scale(2,2)">
+    <g id="background-e1a601f8">
+      <rect fill="#0d1017" stroke="none" x="0" y="0" width="600" height="400" class="dcg-svg-background"/>
+    </g>
+    <g id="graphpaper-e1a601f8">
+      <g id="grid-e1a601f8">
+        <g>
+        <path fill="none" stroke="rgb(255,255,255)" class="dcg-svg-minor-gridline" paint-order="fill stroke markers" d=" M 24.5 0 L 24.5 400" stroke-opacity="0.2" stroke-miterlimit="10" stroke-dasharray=""/>
+        <path fill="none" stroke="rgb(255,255,255)" class="dcg-svg-minor-gridline" paint-order="fill stroke markers" d=" M 74.5 0 L 74.5 400" stroke-opacity="0.2" stroke-miterlimit="10" stroke-dasharray=""/>
+        <path fill="none" stroke="rgb(255,255,255)" class="dcg-svg-minor-gridline" paint-order="fill stroke markers" d=" M 99.5 0 L 99.5 400" stroke-opacity="0.2" stroke-miterlimit="10" stroke-dasharray=""/>
+        <path fill="none" stroke="rgb(255,255,255)" class="dcg-svg-minor-gridline" paint-order="fill stroke markers" d=" M 124.5 0 L 124.5 400" stroke-opacity="0.2" stroke-miterlimit="10" stroke-dasharray=""/>
+        <path fill="none" stroke="rgb(255,255,255)" class="dcg-svg-minor-gridline" paint-order="fill stroke markers" d=" M 149.5 0 L 149.5 400" stroke-opacity="0.2" stroke-miterlimit="10" stroke-dasharray=""/>
+        <path fill="none" stroke="rgb(255,255,255)" class="dcg-svg-minor-gridline" paint-order="fill stroke markers" d=" M 174.5 0 L 174.5 400" stroke-opacity="0.2" stroke-miterlimit="10" stroke-dasharray=""/>
+        <path fill="none" stroke="rgb(255,255,255)" class="dcg-svg-minor-gridline" paint-order="fill stroke markers" d=" M 199.5 0 L 199.5 400" stroke-opacity="0.2" stroke-miterlimit="10" stroke-dasharray=""/>
+        <path fill="none" stroke="rgb(255,255,255)" class="dcg-svg-minor-gridline" paint-order="fill stroke markers" d=" M 224.5 0 L 224.5 400" stroke-opacity="0.2" stroke-miterlimit="10" stroke-dasharray=""/>
+        <path fill="none" stroke="rgb(255,255,255)" class="dcg-svg-minor-gridline" paint-order="fill stroke markers" d=" M 249.5 0 L 249.5 400" stroke-opacity="0.2" stroke-miterlimit="10" stroke-dasharray=""/>
+        <path fill="none" stroke="rgb(255,255,255)" class="dcg-svg-minor-gridline" paint-order="fill stroke markers" d=" M 274.5 0 L 274.5 400" stroke-opacity="0.2" stroke-miterlimit="10" stroke-dasharray=""/>
+        <path fill="none" stroke="rgb(255,255,255)" class="dcg-svg-minor-gridline" paint-order="fill stroke markers" d=" M 299.5 0 L 299.5 400" stroke-opacity="0.2" stroke-miterlimit="10" stroke-dasharray=""/>
+        <path fill="none" stroke="rgb(255,255,255)" class="dcg-svg-minor-gridline" paint-order="fill stroke markers" d=" M 324.5 0 L 324.5 400" stroke-opacity="0.2" stroke-miterlimit="10" stroke-dasharray=""/>
+        <path fill="none" stroke="rgb(255,255,255)" class="dcg-svg-minor-gridline" paint-order="fill stroke markers" d=" M 349.5 0 L 349.5 400" stroke-opacity="0.2" stroke-miterlimit="10" stroke-dasharray=""/>
+        <path fill="none" stroke="rgb(255,255,255)" class="dcg-svg-minor-gridline" paint-order="fill stroke markers" d=" M 374.5 0 L 374.5 400" stroke-opacity="0.2" stroke-miterlimit="10" stroke-dasharray=""/>
+        <path fill="none" stroke="rgb(255,255,255)" class="dcg-svg-minor-gridline" paint-order="fill stroke markers" d=" M 399.5 0 L 399.5 400" stroke-opacity="0.2" stroke-miterlimit="10" stroke-dasharray=""/>
+        <path fill="none" stroke="rgb(255,255,255)" class="dcg-svg-minor-gridline" paint-order="fill stroke markers" d=" M 424.5 0 L 424.5 400" stroke-opacity="0.2" stroke-miterlimit="10" stroke-dasharray=""/>
+        <path fill="none" stroke="rgb(255,255,255)" class="dcg-svg-minor-gridline" paint-order="fill stroke markers" d=" M 449.5 0 L 449.5 400" stroke-opacity="0.2" stroke-miterlimit="10" stroke-dasharray=""/>
+        <path fill="none" stroke="rgb(255,255,255)" class="dcg-svg-minor-gridline" paint-order="fill stroke markers" d=" M 474.5 0 L 474.5 400" stroke-opacity="0.2" stroke-miterlimit="10" stroke-dasharray=""/>
+        <path fill="none" stroke="rgb(255,255,255)" class="dcg-svg-minor-gridline" paint-order="fill stroke markers" d=" M 499.5 0 L 499.5 400" stroke-opacity="0.2" stroke-miterlimit="10" stroke-dasharray=""/>
+        <path fill="none" stroke="rgb(255,255,255)" class="dcg-svg-minor-gridline" paint-order="fill stroke markers" d=" M 524.5 0 L 524.5 400" stroke-opacity="0.2" stroke-miterlimit="10" stroke-dasharray=""/>
+        <path fill="none" stroke="rgb(255,255,255)" class="dcg-svg-minor-gridline" paint-order="fill stroke markers" d=" M 549.5 0 L 549.5 400" stroke-opacity="0.2" stroke-miterlimit="10" stroke-dasharray=""/>
+        <path fill="none" stroke="rgb(255,255,255)" class="dcg-svg-minor-gridline" paint-order="fill stroke markers" d=" M 574.5 0 L 574.5 400" stroke-opacity="0.2" stroke-miterlimit="10" stroke-dasharray=""/>
+        <path fill="none" stroke="rgb(255,255,255)" class="dcg-svg-minor-gridline" paint-order="fill stroke markers" d=" M 599.5 0 L 599.5 400" stroke-opacity="0.2" stroke-miterlimit="10" stroke-dasharray=""/>
+        <path fill="none" stroke="rgb(255,255,255)" class="dcg-svg-minor-gridline" paint-order="fill stroke markers" d=" M 0 376.5 L 600 376.5" stroke-opacity="0.2" stroke-miterlimit="10" stroke-dasharray=""/>
+        <path fill="none" stroke="rgb(255,255,255)" class="dcg-svg-minor-gridline" paint-order="fill stroke markers" d=" M 0 350.5 L 600 350.5" stroke-opacity="0.2" stroke-miterlimit="10" stroke-dasharray=""/>
+        <path fill="none" stroke="rgb(255,255,255)" class="dcg-svg-minor-gridline" paint-order="fill stroke markers" d=" M 0 325.5 L 600 325.5" stroke-opacity="0.2" stroke-miterlimit="10" stroke-dasharray=""/>
+        <path fill="none" stroke="rgb(255,255,255)" class="dcg-svg-minor-gridline" paint-order="fill stroke markers" d=" M 0 300.5 L 600 300.5" stroke-opacity="0.2" stroke-miterlimit="10" stroke-dasharray=""/>
+        <path fill="none" stroke="rgb(255,255,255)" class="dcg-svg-minor-gridline" paint-order="fill stroke markers" d=" M 0 275.5 L 600 275.5" stroke-opacity="0.2" stroke-miterlimit="10" stroke-dasharray=""/>
+        <path fill="none" stroke="rgb(255,255,255)" class="dcg-svg-minor-gridline" paint-order="fill stroke markers" d=" M 0 250.5 L 600 250.5" stroke-opacity="0.2" stroke-miterlimit="10" stroke-dasharray=""/>
+        <path fill="none" stroke="rgb(255,255,255)" class="dcg-svg-minor-gridline" paint-order="fill stroke markers" d=" M 0 225.5 L 600 225.5" stroke-opacity="0.2" stroke-miterlimit="10" stroke-dasharray=""/>
+        <path fill="none" stroke="rgb(255,255,255)" class="dcg-svg-minor-gridline" paint-order="fill stroke markers" d=" M 0 175.5 L 600 175.5" stroke-opacity="0.2" stroke-miterlimit="10" stroke-dasharray=""/>
+        <path fill="none" stroke="rgb(255,255,255)" class="dcg-svg-minor-gridline" paint-order="fill stroke markers" d=" M 0 150.5 L 600 150.5" stroke-opacity="0.2" stroke-miterlimit="10" stroke-dasharray=""/>
+        <path fill="none" stroke="rgb(255,255,255)" class="dcg-svg-minor-gridline" paint-order="fill stroke markers" d=" M 0 125.5 L 600 125.5" stroke-opacity="0.2" stroke-miterlimit="10" stroke-dasharray=""/>
+        <path fill="none" stroke="rgb(255,255,255)" class="dcg-svg-minor-gridline" paint-order="fill stroke markers" d=" M 0 100.5 L 600 100.5" stroke-opacity="0.2" stroke-miterlimit="10" stroke-dasharray=""/>
+        <path fill="none" stroke="rgb(255,255,255)" class="dcg-svg-minor-gridline" paint-order="fill stroke markers" d=" M 0 75.5 L 600 75.5" stroke-opacity="0.2" stroke-miterlimit="10" stroke-dasharray=""/>
+        <path fill="none" stroke="rgb(255,255,255)" class="dcg-svg-minor-gridline" paint-order="fill stroke markers" d=" M 0 50.5 L 600 50.5" stroke-opacity="0.2" stroke-miterlimit="10" stroke-dasharray=""/>
+        <path fill="none" stroke="rgb(255,255,255)" class="dcg-svg-minor-gridline" paint-order="fill stroke markers" d=" M 0 25.5 L 600 25.5" stroke-opacity="0.2" stroke-miterlimit="10" stroke-dasharray=""/>
+        <path fill="none" stroke="rgb(255,255,255)" class="dcg-svg-major-gridline" paint-order="fill stroke markers" d=" M 174.5 0 L 174.5 400" stroke-opacity="0.2500000000000001" stroke-miterlimit="10" stroke-dasharray=""/>
+        <path fill="none" stroke="rgb(255,255,255)" class="dcg-svg-major-gridline" paint-order="fill stroke markers" d=" M 299.5 0 L 299.5 400" stroke-opacity="0.2500000000000001" stroke-miterlimit="10" stroke-dasharray=""/>
+        <path fill="none" stroke="rgb(255,255,255)" class="dcg-svg-major-gridline" paint-order="fill stroke markers" d=" M 424.5 0 L 424.5 400" stroke-opacity="0.2500000000000001" stroke-miterlimit="10" stroke-dasharray=""/>
+        <path fill="none" stroke="rgb(255,255,255)" class="dcg-svg-major-gridline" paint-order="fill stroke markers" d=" M 549.5 0 L 549.5 400" stroke-opacity="0.2500000000000001" stroke-miterlimit="10" stroke-dasharray=""/>
+        <path fill="none" stroke="rgb(255,255,255)" class="dcg-svg-major-gridline" paint-order="fill stroke markers" d=" M 0 325.5 L 600 325.5" stroke-opacity="0.2500000000000001" stroke-miterlimit="10" stroke-dasharray=""/>
+        <path fill="none" stroke="rgb(255,255,255)" class="dcg-svg-major-gridline" paint-order="fill stroke markers" d=" M 0 75.5 L 600 75.5" stroke-opacity="0.2500000000000001" stroke-miterlimit="10" stroke-dasharray=""/>
+      </g>
+    </g>
+    <g id="axis-e1a601f8">
+      <g id="yaxis-e1a601f8">
+        <title>Y axis</title>
+        <g>
+        <path fill="none" stroke="rgb(255,255,255)" class="dcg-svg-axis-line" paint-order="fill stroke markers" d=" M 50 0 L 50 400" stroke-opacity="0.9" stroke-miterlimit="10" stroke-width="1.5" stroke-dasharray=""/>
+      </g>
+    </g>
+    <g id="xaxis-e1a601f8">
+      <title>X axis</title>
+      <g>
+      <path fill="none" stroke="rgb(255,255,255)" class="dcg-svg-axis-line" paint-order="fill stroke markers" d=" M 0 201 L 600 201" stroke-opacity="0.9" stroke-miterlimit="10" stroke-width="1.5" stroke-dasharray=""/>
+    </g>
+  </g>
+  <g>
+  <g class="dcg-svg-axis-value">
+    <text fill="#fff" stroke="none" font-family="JetBrainsMono Nerd Font" font-size="14px" font-style="normal" font-weight="normal" text-decoration="normal" x="40.68902964203539" y="216.7389287987198" text-anchor="middle">0</text>
+  </g>
+  <g class="dcg-svg-axis-value">
+    <text fill="#fff" stroke="none" font-family="JetBrainsMono Nerd Font" font-size="14px" font-style="normal" font-weight="normal" text-decoration="normal" x="174.63667023947983" y="216.7389287987198" text-anchor="middle">5</text>
+  </g>
+  <g class="dcg-svg-axis-value">
+    <text fill="#fff" stroke="none" font-family="JetBrainsMono Nerd Font" font-size="14px" font-style="normal" font-weight="normal" text-decoration="normal" x="299.69264418615217" y="216.7389287987198" text-anchor="middle">10</text>
+  </g>
+  <g class="dcg-svg-axis-value">
+    <text fill="#fff" stroke="none" font-family="JetBrainsMono Nerd Font" font-size="14px" font-style="normal" font-weight="normal" text-decoration="normal" x="424.74861813282445" y="216.7389287987198" text-anchor="middle">15</text>
+  </g>
+  <g class="dcg-svg-axis-value">
+    <text fill="#fff" stroke="none" font-family="JetBrainsMono Nerd Font" font-size="14px" font-style="normal" font-weight="normal" text-decoration="normal" x="549.8045920794968" y="216.7389287987198" text-anchor="middle">20</text>
+  </g>
+  <g class="dcg-svg-axis-value">
+    <text fill="#fff" stroke="none" font-family="JetBrainsMono Nerd Font" font-size="14px" font-style="normal" font-weight="normal" text-decoration="normal" x="38.35569638817492" y="329.794902745392" text-anchor="middle">-5</text>
+  </g>
+  <g class="dcg-svg-axis-value">
+    <text fill="#fff" stroke="none" font-family="JetBrainsMono Nerd Font" font-size="14px" font-style="normal" font-weight="normal" text-decoration="normal" x="40.68902964203539" y="79.68295485204762" text-anchor="middle">5</text>
+  </g>
+</g>
+<g class="dcg-svg-axis-label">
+  <text fill="#fff" stroke="none" font-family="Times" font-size="20px" font-style="italic" font-weight="normal" text-decoration="normal" x="570" y="220" text-anchor="start">t</text>
+</g>
+<g class="dcg-svg-axis-label" transform="translate(37.19439698253328,29)">
+  <text fill="#fff" stroke="none" font-family="Times" font-size="20px" font-style="italic" font-weight="normal" text-decoration="normal" x="0" y="0" text-anchor="start">x</text>
+</g>
+</g>
+</g>
+<g id="expressions-e1a601f8">
+  <g id="sketch-e1a601f8">
+    <title>Expression 1</title>
+    <path fill="#c74440" stroke="none" paint-order="stroke fill markers" d="" fill-opacity="0.4"/>
+    <g>
+    <path fill="none" stroke="#c74440" class="dcg-svg-curve" paint-order="fill stroke markers" d=" M -7.105427357601002e-15 247.2790359033931 L -7.105427357601002e-15 247.2790359033931 L 2.343749999999993 275.49450723345603 L 4.248046874999993 295.2569768789999 L 6.005859374999993 310.54079309927187 L 7.470703124999993 320.8939877013912 L 8.789062499999993 328.2517312352267 L 9.9609375 333.1833929431966 L 10.986328125 336.23768820833135 L 11.865234374999993 337.91520819637583 L 12.59765625 338.6521622877986 L 13.137814839470401 338.8134263892557 L 13.623046875 338.6840794870709 L 14.208984375 338.18566165335415 L 14.94140625 337.04388218144487 L 15.8203125 334.9295333129547 L 16.845703125 331.4695436440934 L 18.017578124999996 326.2652774422183 L 19.335937499999996 318.9182990625436 L 20.80078125 309.0645792674633 L 22.558593749999993 295.1838207465022 L 24.755859375 275.271888668227 L 27.685546874999996 245.71012643965983 L 35.44921874999999 165.89766836351941 L 37.79296875 145.48147994458063 L 39.697265625 131.22915172301126 L 41.455078125 120.24908339958522 L 42.919921875 112.8472255722257 L 44.23828125 107.62046359059201 L 45.41015625 104.15015463032981 L 46.435546875 102.03404329742229 L 47.314453125 100.90596804895145 L 48.046875 100.44741833381278 L 48.63281249999999 100.39318856725696 L 49.21875 100.61390906568877 L 49.951171875 101.27110790111314 L 50.83007812499999 102.6077827218761 L 51.85546874999999 104.90036583947773 L 53.02734375 108.44575539170418 L 54.345703125 113.5428690161769 L 55.810546875 120.46794841162578 L 57.56835937499999 130.32261352749308 L 59.619140625 143.57763714472165 L 62.40234375 163.72157134409693 L 71.484375 231.2593489509354 L 73.681640625 244.6633290903823 L 75.5859375 254.54138631604883 L 77.197265625 261.45844566185 L 78.662109375 266.50573146856664 L 79.98046875 269.9900794219267 L 81.15234375 272.22449400031354 L 82.177734375 273.50695055756466 L 83.056640625 274.10679854461904 L 83.77147433891929 274.25712821892364 L 84.521484375 274.09308334463685 L 85.25390625 273.6197218774286 L 86.279296875 272.4489463102455 L 87.3046875 270.7043052222921 L 88.4765625 268.0399258755053 L 89.794921875 264.2404358063687 L 91.40625 258.5457542227193 L 93.1640625 251.18159601237386 L 95.361328125 240.60933853317084 L 98.291015625 224.90144434178978 L 106.0546875 182.43956353592063 L 108.3984375 171.56397639253422 L 110.44921875 163.43407417932184 L 112.20703125 157.67406509544284 L 113.67187499999999 153.80846494712998 L 114.990234375 151.09502497235593 L 116.16210937499999 149.309509380998 L 117.33398437499999 148.12123218020923 L 118.35937499999999 147.57197439759216 L 119.23828125 147.46277523574892 L 119.97070312499999 147.6234085325035 L 120.84960937500001 148.11265690111804 L 121.875 149.08187941467773 L 123.04687500000001 150.69524856645148 L 124.365234375 153.12032970824396 L 125.830078125 156.51524518164086 L 127.587890625 161.4569475073022 L 129.638671875 168.22815029761395 L 132.12890625 177.542959819435 L 136.376953125 194.82215140908357 L 140.625 211.67580595584806 L 143.115234375 220.42370082445294 L 145.166015625 226.64959653496382 L 147.0703125 231.47513806349588 L 148.681640625 234.75723184319648 L 150.146484375 237.061522333443 L 151.46484375 238.56264645023936 L 152.783203125 239.51272533417642 L 153.80859375 239.87031246634356 L 154.6875 239.91355066357215 L 155.56640625 239.71742933089223 L 156.591796875 239.19275448674554 L 157.763671875 238.21562957602333 L 159.08203125 236.65802075227367 L 160.546875 234.39687592317398 L 162.3046875 231.0190896028309 L 164.208984375 226.6575243011607 L 166.552734375 220.50263613208804 L 169.921875 210.70836778088525 L 176.07421875 192.73615522470425 L 178.7109375 186.05690308537208 L 180.908203125 181.32809185615426 L 182.8125 177.97093870819913 L 184.423828125 175.72565020171328 L 186.03515625000003 174.05884515835166 L 187.50000000000003 173.0606179243827 L 188.67187499999997 172.6199109326265 L 189.84375 172.4955837757167 L 190.869140625 172.64231233315476 L 192.041015625 173.09457823354808 L 193.359375 173.952585532326 L 194.970703125 175.47414301931934 L 196.728515625 177.6758114588924 L 198.6328125 180.61833320832378 L 200.9765625 184.885578624329 L 204.052734375 191.2282368309174 L 212.40234374999997 208.85693384290337 L 214.892578125 213.2089509679064 L 217.08984375 216.4042583238513 L 218.994140625 218.60455810069223 L 220.75195312500003 220.12500689460643 L 222.36328125 221.06860906602776 L 223.681640625 221.51486452801498 L 225.03879333781705 221.6685646298462 L 226.318359375 221.53404767623488 L 227.63671875 221.12023981270684 L 229.1015625 220.34767922088864 L 230.85937499999997 219.01595359133935 L 232.91015625000003 216.96346611098176 L 235.25390624999997 214.0677362018163 L 238.18359374999997 209.84248353441126 L 243.896484375 200.81623393385757 L 247.55859375000003 195.37213872094438 L 250.1953125 191.99368070585612 L 252.5390625 189.5225090425647 L 254.736328125 187.7405690100122 L 256.640625 186.65309980099963 L 258.251953125 186.07810428654622 L 259.716796875 185.83280920423374 L 261.181640625 185.84907314880414 L 262.646484375 186.1198593316916 L 264.2578125 186.69826513960876 L 266.015625 187.64116337314806 L 268.06640625 189.1092140422209 L 270.556640625 191.33716158036486 L 273.779296875 194.7435441777988 L 284.619140625 206.66086277416417 L 287.40234375 208.9337030278481 L 289.74609375 210.3925777433777 L 291.796875 211.28847615174092 L 293.5546875 211.75965884632672 L 295.3125 211.95352448543278 L 297.0703125 211.87394999668828 L 298.828125 211.53132683457494 L 300.732421875 210.88252551648276 L 302.9296875 209.8114865706427 L 305.419921875 208.24587195751806 L 308.7890625 205.69296529567498 L 320.654296875 196.28743153868092 L 323.4375 194.73447882502 L 325.78125 193.77179627763076 L 327.978515625 193.1834068237555 L 330.02929687499994 192.9183261558434 L 332.080078125 192.92651891355902 L 334.130859375 193.19787625490636 L 336.328125 193.759582229188 L 338.818359375 194.69494938869735 L 341.748046875 196.1235914673978 L 345.849609375 198.51031722716723 L 354.19921875 203.45035108742798 L 357.421875 204.94536447943736 L 360.205078125 205.91313520876912 L 362.6953125 206.48625241291046 L 365.0390625 206.75793746905043 L 367.3828125 206.7688336946874 L 369.873046875 206.50629761931856 L 372.509765625 205.94811975114214 L 375.439453125 205.04243775825174 L 379.1015625 203.60112175141944 L 391.9921875 198.23197265598964 L 395.21484375 197.3635682027925 L 398.14453125 196.86343696955274 L 400.927734375 196.66226996885524 L 403.7109375 196.72736411775782 L 406.640625 197.0648141305362 L 409.86328125 197.7110209657438 L 413.81835937500006 198.79887213984233 L 428.61328125 203.18276926305344 L 432.12890625 203.75752034958927 L 435.35156250000006 204.01819817467594 L 438.57421875000006 204.0169677385191 L 441.943359375 203.7519120505515 L 445.751953125 203.17691736136516 L 450.5859375 202.15545095973917 L 462.45117187500006 199.52524065193484 L 466.55273437499994 198.95586271034716 L 470.36132812499994 198.68938114081567 L 474.16992187499994 198.68925683829326 L 478.125 198.9519814978764 L 482.8125 199.5407339970009 L 490.283203125 200.79985806547722 L 497.4609375 201.91728090097894 L 502.294921875 202.4024857185628 L 506.689453125 202.58439197515307 L 511.23046875000006 202.50361210293303 L 516.2109375 202.1422179644526 L 522.94921875 201.364760156456 L 533.642578125 200.1339069982541 L 539.0625 199.79311195291936 L 544.189453125 199.7294367446975 L 549.609375 199.9249215325378 L 556.494140625 200.4522305657531 L 570.849609375 201.62068492105308 L 577.001953125 201.80785993014183 L 583.1542968750001 201.7305713806353 L 590.625 201.35660619622396 L 600 200.73800318625703" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2.5" stroke-dasharray=""/>
+  </g>
+</g>
+</g>
+<g id="labels-e1a601f8"/>
+<g id="labels-e1a601f8"/>
+</g>
+</svg>
