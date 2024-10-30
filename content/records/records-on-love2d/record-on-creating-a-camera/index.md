@@ -627,6 +627,44 @@ with the physics of things.
 With this, you are well equipped to get a smoothly moving camera! Now we move
 onto the next part of a good game camera, the Deadzones.
 
+## World to Camera Coordinates
+
+Before we go ahead, it would become much more easier for us if we are able to
+convert the coordinates from World space to Camera space. This means that we
+convert the coordinates that use the World origin as their origin to coordinates
+that use the Camera origin as their origin.
+
+![Target Coordinates in World Space](./images/target-in-world-space.png "Target in World Space")
+
+![Target Coordinates in Camera Space](./images/target-in-camera-space.png "Target in Camera Space")
+
+Doing this is simple enough if we have no rotations or scaling applied to the
+Camera. We simply subtract the coordinates stored in `Camera._x` and `Camera._y`
+from the World space coordinates.
+
+```lua {title="World Space to Camera Space (NO Scaling or Rotation)"}
+function worldToCamera(x, y)
+  local camera_x = x - self._x
+  local camera_y = y - self._y
+  return camera_x, camera_y
+end
+```
+
+But if we want to use scaling as well as rotation, it becomes a bit more complex.
+
+Let the coordinates of the target be \((x_W, y_W)\) in the World space. To 
+find the coordinates of the target in Camera space, we need to apply some 
+transformations.
+
+\[
+\begin{bmatrix}
+   -s \cdot cos(\theta) & b \\
+   c & d
+\end{bmatrix}
+\]
+
+## Camera to World Coordinates
+
 ## Screen Shake
 
 ## Camera Bounds
@@ -634,10 +672,6 @@ onto the next part of a good game camera, the Deadzones.
 ## Camera Zoom
 
 ## Camera Rotation
-
-## World to Camera Coordinates
-
-## Camera to World Coordinates
 
 ## Deadzones
 
