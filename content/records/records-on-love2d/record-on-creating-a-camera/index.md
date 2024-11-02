@@ -57,7 +57,7 @@ Let us visualize what moving the game world really means. Say the world is
 located at (x, y) = (0, 0). These are the coordinates of the origin of the world.
 Initially, let us have our camera also located at this position.
 
-![Initial World and Camera positions](./images/initial-world-and-camera-positions.png "Initial World and Camera Positions")
+![Initial positions](./images/initial-world-and-camera-positions.png "Figure 1: Initial World and Camera Positions")
 
 The viewport of our screen (or our camera) is fixed. The question is, how exactly
 do we move the world to give the illusion that the camera is moving? We can
@@ -69,12 +69,12 @@ If we move the world in the direction that we want the camera to move (the targe
 we end up going away from the target. This is illustrated in the
 image below.
 
-![Moving the World in the direction we want the Camera to go](./images/moving-the-world-towards-the-target.png "Moving the World towards the target")
+![Moving the World in the same direction](./images/moving-the-world-towards-the-target.png "Figure 2: Moving the World towards the target")
 
 If we move the world in the opposite direction that we want the camera to move,
 we end up going towards the target.
 
-![Moving the World in away from the target](./images/moving-the-world-away-from-the-target.png "Moving the World away from the target")
+![Moving the World in the opposite direction](./images/moving-the-world-away-from-the-target.png "Figure 3: Moving the World away from the target")
 
 Now that we know how to move the World around, we can start building our
 camera.
@@ -138,14 +138,15 @@ Assuming that we want the target to be in the center of the camera at all times,
 we can calculate the distance of the target from the camera center and use that
 to move the world.
 
-![Distance from the target](./images/distance-to-move-to-center-the-target.png "Distance to move the Camera to get Target in the center")
+![Target's distance from the Camera center](./images/distance-to-move-to-center-the-target.png "Figure 4: Distance to move the Camera to get Target in the center")
 
 The units of x (or pixels) the world needs to be moved to get the target in the
 center are
 \[ x = x_t - cameraWidth/2 \]
 \[ y = y_t - cameraHeight/2 \]
 
-![After moving the World to the center the Target in the Camera](./images/world-and-camera-after-moving-target-to-the-center.png "After moving the World to the center the Target in the Camera")
+<a id="figure-5"></a>
+![Centering the Target in the Camera](./images/world-and-camera-after-moving-target-to-the-center.png "Figure 5: After moving the World to the center the Target in the Camera")
 
 If the Camera's width and height are the same as that of the screen, we can
 get those values in our `update` loop as follows:
@@ -204,7 +205,7 @@ function love.draw()
     love.graphics.getPixelWidth(),
     love.graphics.getPixelHeight()
   )
-  love.graphics.rectangel("fill", player.x, player.y, 30, 30)
+  love.graphics.rectangle("fill", player.x, player.y, 30, 30)
   love.graphics.pop()
 end
 ```
@@ -275,6 +276,149 @@ move the world to get the target in the center.
 
 `Camera:set()` and `Camera:unset()` can now be used to apply transforms, draw
 our sprites, and then unset the transformations.
+
+We can further improve this by utilizing LÖVE's `Transform` to keep track of
+all the translations, rotations, and scaling that we want to apply to the
+World.
+
+```lua {title="Using Transform to keep track of applied transformations"}
+function Camera:new()
+  local o = setmetatable({}, Camera)
+  ... o.transform = love.math.newTransform()
+  return o
+end
+
+function Camera:update()
+  self._x = self.target.x - self.width/2
+  self._y = self.target.y - self.height/2
+
+  self.transform:translate(-self._x, -self._y)
+end
+
+function Camera:set()
+  love.graphics.push()
+  love.graphics.applyTransform(self.transform)
+end
+
+function Camera:unset()
+  self.transform:reset()
+  love.graphics.pop()
+end
+```
+
+## Camera Bounds
+
+Many a times we have a Camera that we want to set bounds on, i.e. we do not
+want to expose the empty space around the World. We can see this situation in
+[Figure 5](#figure-5) where the Camera shows the space outside our World. This
+is a simple fix. We just need to know the bounds of the World and use these
+to create guards when updating our Camera's `self._x` and `self._y` fields.
+
+```lua {title="Bounding the Camera to the World boundary"}
+function Camera:new()
+  ...
+  o.bounds = {
+    set = false,
+    top_x = nil,            --The left most x coordinate of the World
+    top_y = nil,            --The left most y coordinate of the World
+    bottom_x = nil,         --The right most x coordinate of the World
+    bottom_y = nil          --The right most y coordinate of the World
+  }
+end
+
+function Camera:setBounds(x, y, width, height)
+  self.bounds.set = true
+  self.bounds.top_x = x
+  self.bounds.top_y = y
+  self.bounds.bottom_x = x + width
+  self.bounds.bottom_y = y + height
+end
+```
+
+With this, we have the foundation for bounding the Camera to the World boundary.
+Next, we need to modify the update function so that the new values of `self._x`
+and `self._y` do not exceed the boundaries.
+
+```lua {title="Modified update function"}
+function Camera:update()
+  local x = self.target.x - self.width / 2
+  local y = self.target.y - self.height / 2
+
+  if self.bounds.set then
+    x = math.max(self.bounds.top_x, math.min(x, self.bounds.bottom_x - self.width))
+    y = math.max(self.bounds.top_y, math.min(y, self.bounds.bottom_y - self.height))
+  end
+
+  self._x = x
+  self._y = y
+
+  self.transform:translate(-self._x, -self._y)
+end
+```
+
+Lines 7 and 8 in this snippet utilize math functions to clamp the value of `x`.
+We want the top-left part of the Camera to not go any lower than the top
+x and y of the `bounds` and stay lower than bottom x and y. This does mean that
+the target does not remain centered in the four corners. This might be a
+desirable feature for your game, and if it isn't, you can simply have `bounds.set`
+to `false`.
+
+-- TODO: add gif (set boundary to ±100 in all directions)
+
+## World to Camera Coordinates
+
+Before we go ahead, it would become much more easier for us if we are able to
+convert the coordinates from World space to Camera space. This means that we
+convert the coordinates that use the World origin as their origin to coordinates
+that use the Camera origin as their origin.
+
+![Target in World Space](./images/target-in-world-space.png "Target in World Space")
+
+![Target in Camera Space](./images/target-in-camera-space.png "Target in Camera Space")
+
+Doing this is simple enough if we have no rotations or scaling applied to the
+Camera. We simply subtract the coordinates stored in `Camera._x` and `Camera._y`
+from the World space coordinates.
+
+```lua {title="World Space to Camera Space (NO Scaling or Rotation)"}
+function worldToCamera(x, y)
+  local camera_x = x - self._x
+  local camera_y = y - self._y
+  return camera_x, camera_y
+end
+```
+
+But if we want to use scaling as well as rotation, it becomes a bit more complex.
+
+Let the coordinates of the target be \((x_W, y_W)\) in the World space. To
+find the coordinates of the target in Camera space, we need to apply some
+transformations.
+
+\[
+\begin{bmatrix}
+   s_{x} \cdot cos(\theta) & -s_{x} \cdot sin(\theta) & x_{cam} \cdot cos(\theta) + y_{cam} \cdot sin(\theta) \\
+   s_{y} \cdot cos(\theta) & -s_{y} \cdot sin(\theta) & x_{cam} \cdot cos(\theta) - y_{cam} \cdot sin(\theta) \\
+   0 & 0 & 1
+\end{bmatrix}
+\]
+
+Where \((x_{cam}, y_{cam})\) are the coordinates of the Camera origin location.
+Because our Camera origin is fixed and does not move, the values of \(x_{cam}\)
+and \(y_{cam}\) are both 0. So the transformation matrix becomes
+
+\[
+\begin{bmatrix}
+   s_{x} \cdot cos(\theta) & -s_{x} \cdot sin(\theta) & 0 \\
+   s_{y} \cdot cos(\theta) & -s_{y} \cdot sin(\theta) & 0 \\
+   0 & 0 & 1
+\end{bmatrix}
+\]
+
+## Camera to World Coordinates
+
+## Camera Zoom
+
+## Camera Rotation
 
 ## Implementing Damping
 
@@ -627,52 +771,7 @@ with the physics of things.
 With this, you are well equipped to get a smoothly moving camera! Now we move
 onto the next part of a good game camera, the Deadzones.
 
-## World to Camera Coordinates
-
-Before we go ahead, it would become much more easier for us if we are able to
-convert the coordinates from World space to Camera space. This means that we
-convert the coordinates that use the World origin as their origin to coordinates
-that use the Camera origin as their origin.
-
-![Target Coordinates in World Space](./images/target-in-world-space.png "Target in World Space")
-
-![Target Coordinates in Camera Space](./images/target-in-camera-space.png "Target in Camera Space")
-
-Doing this is simple enough if we have no rotations or scaling applied to the
-Camera. We simply subtract the coordinates stored in `Camera._x` and `Camera._y`
-from the World space coordinates.
-
-```lua {title="World Space to Camera Space (NO Scaling or Rotation)"}
-function worldToCamera(x, y)
-  local camera_x = x - self._x
-  local camera_y = y - self._y
-  return camera_x, camera_y
-end
-```
-
-But if we want to use scaling as well as rotation, it becomes a bit more complex.
-
-Let the coordinates of the target be \((x_W, y_W)\) in the World space. To 
-find the coordinates of the target in Camera space, we need to apply some 
-transformations.
-
-\[
-\begin{bmatrix}
-   -s \cdot cos(\theta) & b \\
-   c & d
-\end{bmatrix}
-\]
-
-## Camera to World Coordinates
-
 ## Screen Shake
-
-## Camera Bounds
-
-## Camera Zoom
-
-## Camera Rotation
-
 ## Deadzones
 
 Deadzones are, simply put, regions in which the target can move without the
