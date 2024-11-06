@@ -49,6 +49,10 @@ disclaimer = "May the knowledge that rests here change your view of the unseen w
 enable = true
 paginate = 6
 
+[home.projects]
+enable = true
+paginate = 6
+
 [social]
 GitHub = "fenrir-san"
 Linkedin = "vineet-pratik-agarwal"

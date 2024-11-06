@@ -1,0 +1,47 @@
+{{- $params := .Params | merge .Site.Params.page -}}
+
+<article class="single summary project-item">
+  {{- /* Featured image */ -}}
+  {{- $image := $params.featuredImagePreview | default $params.featuredImage -}}
+  {{- with $image -}}
+    <div class="project-featured-image-preview">
+            <a href="{{ $.RelPermalink }}" aria-label={{ $.Title }}>
+                {{ $optim := slice 
+                    (dict "Process" "fill 800x800 Center webp q75" "descriptor" "800w")
+                    (dict "Process" "fill 1200x1200 Center webp q75" "descriptor" "1200w")
+                    (dict "Process" "fill 1600x1600 Center webp q75" "descriptor" "1600w") 
+                }}
+                {{- dict "Src" . "Title" $.Title "Resources" $.Resources "Loading" "eager" "Width" "800" "Height" "800" "Sizes" "(max-width: 800px) 100vw, (max-width: 1200px) 80vw, (max-width: 1600px) 56vw, 800px" "OptimConfig" $optim "Alt" (printf "Featured image for %v" $.Title) | partial "plugin/image.html" -}}
+            </a>
+
+    </div>
+  {{- end -}}
+
+  {{- /* Title */ -}}
+  <h3 class="single-title">
+      <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+  </h3>
+
+  {{- /* Summary or Description */ -}}
+  <div class="content">
+      {{- with .Summary -}}
+          <p>{{ . }}</p>
+      {{- else -}}
+          <p>{{ .Description }}</p>
+      {{- end -}}
+  </div>
+
+  <div class="post-footer">
+    {{- with .Params.tags -}}
+      <div class="post-tags">
+        {{- partial "plugin/fontawesome.html" (dict "Style" "solid" "Icon" "tags") -}}&nbsp;
+        {{- range $index, $value := . -}}
+          {{- if gt $index 0 }},&nbsp;{{ end -}}
+          {{- $tag := partialCached "function/path.html" $value $value | printf "/tags/%v" | $.Site.GetPage -}}
+          <a href="{{ $tag.RelPermalink }}">{{ $tag.Title }}</a>
+        {{- end -}}
+      </div>
+    {{- end -}}
+  </div>
+</article>
+

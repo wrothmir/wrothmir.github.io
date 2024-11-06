@@ -1,0 +1,29 @@
+{{- define "title" }}
+    {{- if (gt .Paginator.PageNumber 1) -}}
+        {{ $pageNumber := printf "%v %v %v" (T "prefixPageNumber" ) .Paginator.PageNumber (T "suffixPageNumber" ) }}
+        {{- .Params.Title | default (T .Section) | default .Section | dict "Some" | T "allSome" }} {{ $pageNumber }} - {{ .Site.Title -}}
+    {{- else -}}
+         {{- .Params.Title | default (T .Section) | default .Section | dict "Some" | T "allSome" }} - {{ .Site.Title -}}
+    {{- end -}}
+{{- end -}}
+
+{{- define "content" -}}
+    {{- $params := .Scratch.Get "params" -}}
+    {{- $projects := .Site.GetPage "section" "projects" -}}  <!-- Get the "projects" section -->
+
+    <div class="page home"{{ if ne (index $projects.Params "enable") false | or .Content }} posts{{ end }}>
+        {{- /* Projects Section */ -}}
+        {{- if ne (index $projects.Params "enable") false -}}  <!-- Conditionally render projects -->
+        <h2 class="projects-title">
+          {{- .Params.Title | default (T .Section) | default .Section | dict "Some" | T "allSome" -}}
+        </h2>
+            <div class="projects-list">
+
+                {{- range $projects.Pages -}}  <!-- List all pages in "projects" section -->
+                    {{- partial "project-summary.html" . -}}
+                {{- end -}}
+            </div>
+        {{- end -}}
+    </div>
+{{- end -}}
+

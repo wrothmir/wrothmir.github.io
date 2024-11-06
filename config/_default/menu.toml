@@ -9,6 +9,15 @@ title = ""
 
 [[main]]
 weight = 2
+identifier = "projects"
+pre = "<i class='fas fa-stream fa-fw'></i>"
+post = ""
+name = "Projects"
+url = "/projects/"
+title = ""
+
+[[main]]
+weight = 3
 identifier = "tags"
 pre = "<i class='fas fa-tag fa-fw'></i>"
 post = ""
@@ -17,7 +26,7 @@ url = "/tags/"
 title = ""
 
 [[main]]
-weight = 3
+weight = 4
 identifier = "categories"
 pre = "<i class='fas fa-stream fa-fw'></i>"
 post = ""
@@ -26,7 +35,7 @@ url = "/categories/"
 title = ""
 
 [[main]]
-weight = 4
+weight = 5
 identifier = "github"
 pre = "<i class='fab fa-github fa-fw' aria-hidden='true'></i>"
 post = ""
