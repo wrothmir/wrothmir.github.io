@@ -129,8 +129,8 @@ we will create a Camera table that has two fields storing said x and y values.
 
 ```lua {title="The Camera table"}
 local Camera = {
-    x = 0,
-    y = 0,
+    wx = 0,
+    wy = 0,
 }
 ```
 
@@ -154,8 +154,8 @@ get those values in our `update` loop as follows:
 ```lua {title="Updating the Camera's x and y values"}
 function love.update(dt)
   ...
-  Camera.x = player.x - love.graphics.getPixelWidth()/2
-  Camera.y = player.y - love.graphics.getPixelHeight()/2
+  Camera.wx = player.x - love.graphics.getPixelWidth()/2
+  Camera.wy = player.y - love.graphics.getPixelHeight()/2
 end
 ```
 
@@ -165,8 +165,8 @@ table during the `draw` loop.
 ```lua {title="Drawing the World with an offset from the Camera"}
 function love.draw()
   love.graphics.push()
-  love.graphics.translate(-Camera.x, -Camera.y)
-  love.graphics.rectangel("fill", player.x, player.y, 30, 30)
+  love.graphics.translate(-Camera.wx, -Camera.wy)
+  love.graphics.rectangle("fill", player.x, player.y, 30, 30)
   love.graphics.pop()
 end
 ```
@@ -178,7 +178,7 @@ provided by LÖVE that pushes all the currently applied transformation to the
 stack. This is necessary to make sure that any other transformations being
 applied do not interfere with what we are going to draw next.
 
-Next up is `love.graphics.translate(-Camera.x, -Camera.y)`. This translates
+Next up is `love.graphics.translate(-Camera.wx, -Camera.wy)`. This translates
 whatever we draw after this line by `-Camera.x` and `-Camera.y`.
 
 Now we draw our player. And then pop the transformations we pushed to the stack
@@ -197,7 +197,7 @@ indeed moving.
 ```lua {title="Adding World boundaries"}
 function love.draw()
   love.graphics.push()
-  love.graphics.translate(-Camera.x, -Camera.y)
+  love.graphics.translate(-Camera.wx, -Camera.wy)
   love.graphics.rectangle(
     "line",
     0,
@@ -212,7 +212,7 @@ end
 
 Now when we run the code, we can see that the target stays in the center of the
 Camera and is actually moving around the World (or rather the World is moving
-to keep the target in the center of the Camera)!
+to keep the target in the center of the Camera) with the target in the center!
 
 --TODO: Add gif here.
 
@@ -235,8 +235,8 @@ Camera.__index = Camera
 
 function Camera:new()
   local o = setmetatable({}, Camera)
-  o._x = 0
-  o._y = 0
+  o.wx = 0
+  o.wy = 0
   o.width = love.graphics.getPixelWidth()
   o.height = love.graphics.getPixelHeight()
   o.target = nil
@@ -248,13 +248,13 @@ function Camera:attach(target)
 end
 
 function Camera:update()
-  self._x = self.target.x - self.width/2
-  self._y = self.target.y - self.height/2
+  self.wx = self.target.x - self.width/2
+  self.wy = self.target.y - self.height/2
 end
 
 function Camera:set()
   love.graphics.push()
-  love.graphics.translate(-self._x, -self._y)
+  love.graphics.translate(-self.wx, -self.wy)
 end
 
 function Camera:unset()
@@ -289,10 +289,10 @@ function Camera:new()
 end
 
 function Camera:update()
-  self._x = self.target.x - self.width/2
-  self._y = self.target.y - self.height/2
+  self.wx = self.target.x - self.width/2
+  self.wy = self.target.y - self.height/2
 
-  self.transform:translate(-self._x, -self._y)
+  self.transform:translate(-self.wx, -self.wy)
 end
 
 function Camera:set()
@@ -321,8 +321,8 @@ function Camera:new()
     set = false,
     top_x = nil,            --The left most x coordinate of the World
     top_y = nil,            --The left most y coordinate of the World
-    bottom_x = nil,         --The right most x coordinate of the World
-    bottom_y = nil          --The right most y coordinate of the World
+    bottom_x = nil,         --The right most x coordinate of the World - The width of the Camera
+    bottom_y = nil          --The right most y coordinate of the World - The height of the Camera
   }
 end
 
@@ -330,8 +330,8 @@ function Camera:setBounds(x, y, width, height)
   self.bounds.set = true
   self.bounds.top_x = x
   self.bounds.top_y = y
-  self.bounds.bottom_x = x + width
-  self.bounds.bottom_y = y + height
+  self.bounds.bottom_x = x + width - self.width
+  self.bounds.bottom_y = y + height - self.height
 end
 ```
 
@@ -345,14 +345,14 @@ function Camera:update()
   local y = self.target.y - self.height / 2
 
   if self.bounds.set then
-    x = math.max(self.bounds.top_x, math.min(x, self.bounds.bottom_x - self.width))
-    y = math.max(self.bounds.top_y, math.min(y, self.bounds.bottom_y - self.height))
+    x = math.max(self.bounds.top_x, math.min(x, self.bounds.bottom_x))
+    y = math.max(self.bounds.top_y, math.min(y, self.bounds.bottom_y))
   end
 
-  self._x = x
-  self._y = y
+  self.wx = x
+  self.wy = y
 
-  self.transform:translate(-self._x, -self._y)
+  self.transform:translate(-self.wx, -self.wy)
 end
 ```
 
@@ -382,43 +382,28 @@ from the World space coordinates.
 
 ```lua {title="World Space to Camera Space (NO Scaling or Rotation)"}
 function worldToCamera(x, y)
-  local camera_x = x - self._x
-  local camera_y = y - self._y
+  local camera_x = x - self.wx
+  local camera_y = y - self.wy
   return camera_x, camera_y
 end
 ```
 
-But if we want to use scaling as well as rotation, it becomes a bit more complex.
-
-Let the coordinates of the target be \((x_W, y_W)\) in the World space. To
-find the coordinates of the target in Camera space, we need to apply some
-transformations.
-
-\[
-\begin{bmatrix}
-   s_{x} \cdot cos(\theta) & -s_{x} \cdot sin(\theta) & x_{cam} \cdot cos(\theta) + y_{cam} \cdot sin(\theta) \\
-   s_{y} \cdot cos(\theta) & -s_{y} \cdot sin(\theta) & x_{cam} \cdot cos(\theta) - y_{cam} \cdot sin(\theta) \\
-   0 & 0 & 1
-\end{bmatrix}
-\]
-
-Where \((x_{cam}, y_{cam})\) are the coordinates of the Camera origin location.
-Because our Camera origin is fixed and does not move, the values of \(x_{cam}\)
-and \(y_{cam}\) are both 0. So the transformation matrix becomes
-
-\[
-\begin{bmatrix}
-   s_{x} \cdot cos(\theta) & -s_{x} \cdot sin(\theta) & 0 \\
-   s_{y} \cdot cos(\theta) & -s_{y} \cdot sin(\theta) & 0 \\
-   0 & 0 & 1
-\end{bmatrix}
-\]
-
 ## Camera to World Coordinates
 
-## Camera Zoom
+To convert the coordinates from Camera Space to World Space we just need to 
+do the reverse of what we did to go from the World Space to Camera Space.
 
-## Camera Rotation
+```lua {title="World Space to Camera Space (NO Scaling or Rotation)"}
+function cameraToWorld(x, y)
+  local world_x = x + self.wx
+  local world_y = y + self.wy
+  return world_x, world_y
+end
+```
+
+--## Camera Zoom
+
+--## Camera Rotation
 
 ## Implementing Damping
 
@@ -439,9 +424,9 @@ a damping factor, and then add it to our current camera coordinates.
 
 This is similar to the equation for Linear Interpolation:
 
-\[y = x + (a - x) * b \]
-where \(b\) is the interpolation factor, \(a\) is the destination, and \(x\)
-and \(y\) are the current position and new position respectively.
+\[z = a + (b - a) * c \]
+where \(c\) is the interpolation factor, \(b\) is the destination, and \(a\)
+and \(z\) are the current position and new position respectively.
 
 Here is the updated code for the `Camera:update()` function to utilize this
 interpolation.
@@ -449,18 +434,34 @@ interpolation.
 ```lua {title="Linear Interpolation Damping"}
 function Camera:new()
   ...
-  o.damping = 0.1
+  o.damping = 1
   return o
 end
 
+function Camera:lerp(a, b, c)
+  return a + (b - a) * c
+end
+
 function Camera:update()
-  self._x = self._x + ( (self.target.x - self.width/2) - self._x ) * self.damping
-  self._y = self._y + ( (self.target.y - self.height/2) - self._y ) * self.damping
+  local target_x, target_y = self:fromWorldToCamera(self.target.x, self.target.y)
+
+  local x = self.wx + self:lerp(0, target_x - self.width/2, self.damping)
+  local y = self.wy + self:lerp(0, target_y - self.height/2, self.damping)
+
+  if self.bounds.set then
+    x = math.max(self.bounds.top_x, math.min(x, self.bounds.bottom_x))
+    y = math.max(self.bounds.top_y, math.min(y, self.bounds.bottom_y))
+  end
+
+  self.wx = x
+  self.wy = y
+
+  self.transform:translate(-self.wx, -self.wy)
 end
 ```
 
-The closer the value of `damping` is to 1, the faster the camera
-moves, and subsequently, the farther away the value is from 1, the slower it
+The closer the value of `damping` is to 0, the slower the camera
+moves, and subsequently, the farther away the value is from 0, the slower it
 moves. You can change the value of the damping factor to try out what feels
 good for your game.
 
@@ -480,20 +481,73 @@ As a consequence of this multiplication, we need to increase the value of
 `damping` to make sure that the product does not become too small.
 
 ```lua {title="Linear Interpolation Damping (Frame-Rate Independent)"}
-function Camera:new()
-  ...
-  o.damping = 4
-  return o
-end
-
-function Camera:update(dt)
-  self._x = self._x + ( (self.target.x - self.width/2) - self._x ) * self.damping * dt
-  self._y = self._y + ( (self.target.y - self.height/2) - self._y ) * self.damping * dt
+function Camera:lerp(a, b, c, dt)
+  dt = dt or 1
+  return a + (b - a) * c * dt
 end
 ```
 
-Of course, you can go further and have different damping values for both the axes
-if you feel like it!
+Now that we have our function which returns lerped values, we can call this 
+in our main update function.
+
+```lua {title="Modified Update Function"}
+function Camera:update(dt)
+  ...
+
+  local x = self.wx + self:lerp(0, target_x - self.width/2, self.damping, dt)
+  local y = self.wy + self:lerp(0, target_y - self.height/2, self.damping, dt)
+
+  ...
+end
+```
+
+If you notice, the values of `a` and `b` we pass into the lerp fuction are `0`
+and `coordinate - dimension/2`. The reason `a` and `b` have these values is 
+because we have already subtracted `self.x` and `self.y` from the target 
+coordinates when moving them from World space to Camera space.
+
+We have a couple of problems here though.
+
+1. First up, as the distance gets smaller, the steps we take to reach the target
+become infinitesimally small, so small that the camera motion may appear to be
+jerky between steps.
+
+2. Secondly, unless the delta reaches exactly zero, which would take a while, the 
+calculation will go on forever even if we stop moving our character.
+
+To fix this, we can set a threshold that enforces a limit on how small the
+steps can be.
+
+```lua {title="Threshold Capped Lerp"}
+function Camera:update(dt)
+  local target_x, target_y = self:fromWorldToCamera(self.target.x, self.target.y)
+
+  local x_step = self:lerp(0, target_x - self.width / 2, self.damping, dt)
+  local y_step = self:lerp(0, target_y - self.height / 2, self.damping, dt)
+
+  if math.abs(x_step) < self.threshold then
+    x_step = target_x - self.width / 2
+  end
+  if math.abs(y_step) < self.threshold then
+    y_step = target_y - self.height / 2
+  end
+
+  local x, y = self:fromCameraToWorld(x_step, y_step)
+
+  if self.bounds.set then
+    x = math.max(self.bounds.top_x, math.min(x, self.bounds.bottom_x))
+    y = math.max(self.bounds.top_y, math.min(y, self.bounds.bottom_y))
+  end
+
+  self.wx = x
+  self.wy = y
+
+  self.transform:translate(-self.wx, -self.wy)
+end
+```
+
+Doing this check in the update function instead of lerp ensures that we can 
+use it for the upcoming update functions as well, making our code more modular.
 
 --TODO: Add gif here.
 
@@ -508,31 +562,18 @@ down exponentially as it reaches the target location. It is similar to lerp,
 but instead of multiplying directly by damping, we multiply the delta by
 a negative exponent of damping subtracted from 1.
 
-\[ y = x + (b - x) * (1 - e^{-x}) \]
+\[ z = a + (b - a) * (1 - e^{-c}) \]
 
 ![Exponential Decay](./images/exp_decay.png "Exponential Decay Function (exaggerated)")
 
 To make this frame-independent, we multiply `damping` by `dt`.
 
 ```lua {title="Exponential Decay Damping (Frame-Rate Independent)"}
-function Camera:update(dt)
+function Camera:expDecay(dt)
   self._x = self._x + ( (self.target.x - self.width/2) - self._x ) * (1 - math.exp(self.damping * dt))
   self._y = self._y + ( (self.target.y - self.height/2) - self._y ) * (1 - math.exp(self.damping * dt))
 end
 ```
-
-We have a couple of problems here though.
-
-1. First up, as the distance gets smaller, the steps we take to reach the target
-become infinitesimally small, so small that the camera motion may appear to be
-jerky between steps.
-
-2. Secondly, unless the delta reaches exactly zero, which is unlikely, the calculation
-will go on forever even if we stop moving our character, at times crossing zero
-and becoming negative.
-
-To fix this, we can set a threshold that enforces a limit on how small the
-steps can be.
 
 ```lua {title="Threshold-Capped Exponential Decay Damping (Frame-Rate Independent)"}
 function Camera:new()
