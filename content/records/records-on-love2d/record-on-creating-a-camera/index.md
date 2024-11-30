@@ -271,14 +271,14 @@ We create a new Camera instance by using the `Camera:new()` method.
 `Camera.target` now holds a reference to the target that we want to track, and the
 target has to be manually attached once.
 
---TODO: Add admonition NOTE for target being a table (that tables are passed as 
-references) and that we must be careful not to modify those target coords 
+--TODO: Add admonition NOTE for target being a table (that tables are passed as
+references) and that we must be careful not to modify those target coords
 or else the player position itself would change.
 
 The `Camera:update()` method has the logic for calculating the distance to
 move the world to get the target in the center.
 
-`Camera:setTransform()` and `Camera:unsetTransform()` can now be used to apply 
+`Camera:setTransform()` and `Camera:unsetTransform()` can now be used to apply
 transforms, draw our sprites, and then unset the transformations.
 
 We can further improve this by utilizing LÖVE's `Transform` to keep track of
@@ -310,7 +310,7 @@ function Camera:unsetTransform()
 end
 ```
 
-With these modifications, our `draw` function can now be changed to the 
+With these modifications, our `draw` function can now be changed to the
 following.
 
 ```lua {title="Updated draw function"}
@@ -412,7 +412,7 @@ end
 
 ## Camera to World Coordinates
 
-To convert the coordinates from Camera Space to World Space we just need to 
+To convert the coordinates from Camera Space to World Space we just need to
 do the reverse of what we did to go from the World Space to Camera Space.
 
 ```lua {title="World Space to Camera Space (NO Scaling or Rotation)"}
@@ -512,7 +512,7 @@ function Camera:lerp(a, b, c, dt)
 end
 ```
 
-Now that we have our function which returns lerped values, we can call this 
+Now that we have our function which returns lerped values, we can call this
 in our main update function.
 
 ```lua {title="Modified Update Function"}
@@ -527,8 +527,8 @@ end
 ```
 
 If you notice, the values of `a` and `b` we pass into the lerp fuction are `0`
-and `coordinate - dimension/2`. The reason `a` and `b` have these values is 
-because we have already subtracted `self.x` and `self.y` from the target 
+and `coordinate - dimension/2`. The reason `a` and `b` have these values is
+because we have already subtracted `self.x` and `self.y` from the target
 coordinates when moving them from World space to Camera space.
 
 We have a couple of problems here though.
@@ -537,10 +537,10 @@ We have a couple of problems here though.
 become infinitesimally small, so small that the camera motion may appear to be
 jerky between steps.
 
-2. Secondly, unless the delta reaches exactly zero, which would take a while, the 
+2. Secondly, unless the delta reaches exactly zero, which would take a while, the
 calculation will go on forever even if we stop moving our character.
 
-To avoid such unnecessarily small calculations, we can set a threshold that 
+To avoid such unnecessarily small calculations, we can set a threshold that
 to limit how small the steps can be.
 
 ```lua {title="Threshold Capped Lerp"}
@@ -580,7 +580,7 @@ function Camera:update(dt)
 end
 ```
 
-Doing this check in the update function instead of lerp ensures that we can 
+Doing this check in the update function instead of lerp ensures that we can
 use it for the upcoming update functions as well, making our code more modular.
 
 --TODO: Add gif here.
@@ -592,7 +592,7 @@ a look at some more of them.
 
 In this approach, the camera initially moves at higher speeds and then slows
 down exponentially as it reaches the target location. It is similar to lerp,
-but instead of multiplying directly by the damping factor, we multiply the 
+but instead of multiplying directly by the damping factor, we multiply the
 delta by a negative exponent of damping subtracted from 1.
 
 \[ z = a + (b - a) * (1 - e^{-c}) \]
@@ -790,7 +790,7 @@ end
 
 We see here that is follows the same idea of modifying the velocity and using
 it to update the position of the camera. The target in our case would
-be `delta_x` and `delta_y` and our current positions would be (0, 0) since we 
+be `delta_x` and `delta_y` and our current positions would be (0, 0) since we
 are in the Camera coordinate space.
 
 ```lua {title="Smooth Damp Update Call"}
@@ -816,21 +816,21 @@ onto the next part of a good game camera, the Deadzones.
 {{< admonition type=info title="Organizing code for multiple damping options" open=false >}}
 
 The current setup only allows for a singular damping method exist in the update
-block at any given time. This means that once the program is run, it is not 
-possible to choose another damping method for a particular case. Adding this 
+block at any given time. This means that once the program is run, it is not
+possible to choose another damping method for a particular case. Adding this
 functionality to our code would make the Camera more flexible.
 
 We can achieve this in a couple of ways. The easiest, with our current setup, would be
 to set up a flag that the user can set which can then be compared to find out
-which damping method to execute. While simple, this means that there will be 
-many checks made during the update loop with an ***O(n)*** time complexity in the 
+which damping method to execute. While simple, this means that there will be
+many checks made during the update loop with an ***O(n)*** time complexity in the
 worst case.
 
-Another method would be to create a table that stores these methods and use 
-the flag to get the function at that index and execute it. This however would 
+Another method would be to create a table that stores these methods and use
+the flag to get the function at that index and execute it. This however would
 require defining the function in the `Camera:new()` method, and there is also
 the issue of different number of parameters and return values. This can,
-however, be worked around by moving the functions to a different file 
+however, be worked around by moving the functions to a different file
 altogether and utilizing closures for making the function signature similar.
 
 ```lua {title="utils.lua"}
@@ -927,7 +927,7 @@ function Camera:setDampingMode(mode)
 end
 ```
 
-With this setup, we can go ahead an modify the `Camera:update()` method for 
+With this setup, we can go ahead an modify the `Camera:update()` method for
 calculating the steps and velocity in each update call.
 
 ```lua {title="Modified update method"}
@@ -942,13 +942,13 @@ function Camera:update(dt)
 end
 ```
 
-I prefer this setup over the *if-else* checks as it has a better runtime 
-performance. It takes ***O(1)*** time to check the function because of using 
-table lookups. This also separates the functions into a utils file which 
+I prefer this setup over the *if-else* checks as it has a better runtime
+performance. It takes ***O(1)*** time to check the function because of using
+table lookups. This also separates the functions into a utils file which
 allows them to be used independently without creating a `Camera` instance.
-This setup will require a bit more memory per object instance as the 
-closures would be created separately for each of them. But if there are not 
-many cameras in use, as is the case usually, then that little extra memory 
+This setup will require a bit more memory per object instance as the
+closures would be created separately for each of them. But if there are not
+many cameras in use, as is the case usually, then that little extra memory
 usage is a fair trade-off for a more performant update loop.
 
 {{< /admonition >}}
