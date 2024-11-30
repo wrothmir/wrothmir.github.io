@@ -243,7 +243,7 @@ function Camera:new()
   return o
 end
 
-function Camera:attach(target)
+function Camera:attachTarget(target)
   self.target = target
 end
 
@@ -252,12 +252,12 @@ function Camera:update()
   self.wy = self.target.y - self.height/2
 end
 
-function Camera:set()
+function Camera:setTransform()
   love.graphics.push()
   love.graphics.translate(-self.wx, -self.wy)
 end
 
-function Camera:unset()
+function Camera:unsetTransform()
   love.graphics.pop()
 end
 
@@ -271,11 +271,15 @@ We create a new Camera instance by using the `Camera:new()` method.
 `Camera.target` now holds a reference to the target that we want to track, and the
 target has to be manually attached once.
 
+--TODO: Add admonition NOTE for target being a table (that tables are passed as 
+references) and that we must be careful not to modify those target coords 
+or else the player position itself would change.
+
 The `Camera:update()` method has the logic for calculating the distance to
 move the world to get the target in the center.
 
-`Camera:set()` and `Camera:unset()` can now be used to apply transforms, draw
-our sprites, and then unset the transformations.
+`Camera:setTransform()` and `Camera:unsetTransform()` can now be used to apply 
+transforms, draw our sprites, and then unset the transformations.
 
 We can further improve this by utilizing LÖVE's `Transform` to keep track of
 all the translations, rotations, and scaling that we want to apply to the
@@ -295,14 +299,32 @@ function Camera:update()
   self.transform:translate(-self.wx, -self.wy)
 end
 
-function Camera:set()
+function Camera:setTransform()
   love.graphics.push()
   love.graphics.applyTransform(self.transform)
 end
 
-function Camera:unset()
+function Camera:unsetTransform()
   self.transform:reset()
   love.graphics.pop()
+end
+```
+
+With these modifications, our `draw` function can now be changed to the 
+following.
+
+```lua {title="Updated draw function"}
+function love.draw()
+  camera:setTransform()
+  love.graphics.rectangle(
+    "line",
+    0,
+    0,
+    love.graphics.getPixelWidth(),
+    love.graphics.getPixelHeight()
+  )
+  love.graphics.rectangle("fill", player.x, player.y, 30, 30)
+  camera:unsetTransform()
 end
 ```
 
@@ -381,7 +403,7 @@ Camera. We simply subtract the coordinates stored in `Camera._x` and `Camera._y`
 from the World space coordinates.
 
 ```lua {title="World Space to Camera Space (NO Scaling or Rotation)"}
-function worldToCamera(x, y)
+function Camera:worldToCamera(x, y)
   local camera_x = x - self.wx
   local camera_y = y - self.wy
   return camera_x, camera_y
@@ -394,7 +416,7 @@ To convert the coordinates from Camera Space to World Space we just need to
 do the reverse of what we did to go from the World Space to Camera Space.
 
 ```lua {title="World Space to Camera Space (NO Scaling or Rotation)"}
-function cameraToWorld(x, y)
+function Camera:cameraToWorld(x, y)
   local world_x = x + self.wx
   local world_y = y + self.wy
   return world_x, world_y
@@ -445,8 +467,11 @@ end
 function Camera:update()
   local target_x, target_y = self:fromWorldToCamera(self.target.x, self.target.y)
 
-  local x = self.wx + self:lerp(0, target_x - self.width/2, self.damping)
-  local y = self.wy + self:lerp(0, target_y - self.height/2, self.damping)
+  local delta_x = target_x - self.width / 2
+  local delta_y = target_y - self.height / 2
+
+  local x = self.wx + self:lerp(0, delta_x, self.damping)
+  local y = self.wy + self:lerp(0, delta_y, self.damping)
 
   if self.bounds.set then
     x = math.max(self.bounds.top_x, math.min(x, self.bounds.bottom_x))
@@ -494,8 +519,8 @@ in our main update function.
 function Camera:update(dt)
   ...
 
-  local x = self.wx + self:lerp(0, target_x - self.width/2, self.damping, dt)
-  local y = self.wy + self:lerp(0, target_y - self.height/2, self.damping, dt)
+  local x = self.wx + self:lerp(0, delta_x, self.damping, dt)
+  local y = self.wy + self:lerp(0, delta_y, self.damping, dt)
 
   ...
 end
@@ -515,21 +540,30 @@ jerky between steps.
 2. Secondly, unless the delta reaches exactly zero, which would take a while, the 
 calculation will go on forever even if we stop moving our character.
 
-To fix this, we can set a threshold that enforces a limit on how small the
-steps can be.
+To avoid such unnecessarily small calculations, we can set a threshold that 
+to limit how small the steps can be.
 
 ```lua {title="Threshold Capped Lerp"}
+function Camera:new()
+  ...
+  o.threshold = 0.01
+  ...
+end
+
 function Camera:update(dt)
   local target_x, target_y = self:fromWorldToCamera(self.target.x, self.target.y)
 
-  local x_step = self:lerp(0, target_x - self.width / 2, self.damping, dt)
-  local y_step = self:lerp(0, target_y - self.height / 2, self.damping, dt)
+  local delta_x = target_x - self.width / 2
+  local delta_y = target_y - self.height / 2
+
+  local x_step = self:lerp(0, delta_x, self.damping, dt)
+  local y_step = self:lerp(0, delta_y, self.damping, dt)
 
   if math.abs(x_step) < self.threshold then
-    x_step = target_x - self.width / 2
+    x_step = delta_x
   end
   if math.abs(y_step) < self.threshold then
-    y_step = target_y - self.height / 2
+    y_step = delta_y
   end
 
   local x, y = self:fromCameraToWorld(x_step, y_step)
@@ -551,16 +585,15 @@ use it for the upcoming update functions as well, making our code more modular.
 
 --TODO: Add gif here.
 
-What we just implemented was damping using *Linear Interpolation*, more commonly
-known as *lerp*. There are many more ways you can rig the camera to dampen
-movement. Let's have a look at some more of them.
+There are many more ways you can rig the camera to dampen movement. Let's have
+a look at some more of them.
 
 ### Exponential Decay Damping
 
 In this approach, the camera initially moves at higher speeds and then slows
 down exponentially as it reaches the target location. It is similar to lerp,
-but instead of multiplying directly by damping, we multiply the delta by
-a negative exponent of damping subtracted from 1.
+but instead of multiplying directly by the damping factor, we multiply the 
+delta by a negative exponent of damping subtracted from 1.
 
 \[ z = a + (b - a) * (1 - e^{-c}) \]
 
@@ -569,46 +602,25 @@ a negative exponent of damping subtracted from 1.
 To make this frame-independent, we multiply `damping` by `dt`.
 
 ```lua {title="Exponential Decay Damping (Frame-Rate Independent)"}
-function Camera:expDecay(dt)
-  self._x = self._x + ( (self.target.x - self.width/2) - self._x ) * (1 - math.exp(self.damping * dt))
-  self._y = self._y + ( (self.target.y - self.height/2) - self._y ) * (1 - math.exp(self.damping * dt))
+function Camera:expDecay(a, b, c, dt)
+  dt = dt or 1
+  return a + (b - a) * (1 - math.exp(-c * dt))
 end
 ```
 
 ```lua {title="Threshold-Capped Exponential Decay Damping (Frame-Rate Independent)"}
-function Camera:new()
-  ...
-  o.damping = 4
-  o.damping_threshold= 5
-  return o
-end
-
 function Camera:update(dt)
-  local x = self.target.x - self.width/2
-  local y = self.target.y - self.height/2
+  ...
 
-  local delta_x = x - self._x
-  local delta_y = y - self._y
+  local x_step = self:expDecay(0, delta_x, self.damping, dt)
+  local y_step = self:expDecay(0, delta_y, self.damping, dt)
 
-  local factor = 1 - math.exp(-self.damping * dt)
-
-  if (delta_x * factor) < self.damping_threshold then
-    self._x = x
-  else
-    self._x = self._x + delta_x * factor
-  end
-
-  if (delta_y * factor) < self.damping_threshold then
-    self._y = y
-  else
-    self._y = self._y + delta_y * factor
-  end
+  ...
 end
 ```
 
 --TODO: Add gif here.
 
-With these improvements, we avoid unnecessary calculation and increase performance.
 You can change the curve of damping by tweaking the factor to get the desired
 smoothness.
 
@@ -654,42 +666,43 @@ is infinitesimally small.
 
 ```lua {title="Under Damped Spring System (Frame-Rate Independent)"}
 function Camera:new()
+  ...
   o.velocityX = 0 -- Initialize velocity for X
   o.velocityY = 0 -- Initialize velocity for Y
   o.threshold = 0.01 -- Threshold to prevent infinite calculations
   o.stiffness = 10 -- Spring stiffness (k)
   o.mass = 1 -- Mass of the spring (m)
   o.damping = 2 -- Damping coefficient (c)
+  ...
+end
+
+function Camera:underDampedSpring(delta, velocity, dt)
+  dt = dt or 1
+  local force = self.stiffness * delta
+  local damping = self.damping * velocity
+  velocity = velocity + ((force - damping) / self.mass) * dt
+  return velocity * dt, velocity
 end
 
 function Camera:update(dt)
-  local x = self.target.x - self.width / 2
-  local y = self.target.y - self.height / 2
+  ...
 
-  local delta_x = self._x - x
-  local delta_y = self._y - y
+  local x_step, y_step
 
-  if math.abs(delta_x) > self.threshold then
-    -- Spring-damping update for X-axis
-    local force_x = -self.stiffness * delta_x
-    local damping_x = -self.damping * self.velocity_x
-    self.velocity_x = self.velocity_x + ((force_x + damping_x)/self.mass) * dt
-    self._x = self._x + self.velocity_x * dt
-  else
-    self._x = x
+  x_step, self.velocity_x = self:underDampedSpring(delta_x, self.velocity_x, dt)
+  y_step, self.velocity_y = self:underDampedSpring(delta_y, self.velocity_y, dt)
+
+  if math.abs(delta_x) < self.threshold then
+    x_step = delta_x
     self.velocity_x = 0
   end
 
-  if math.abs(delta_x) > self.threshold then
-    -- Spring-damping update for Y-axis
-    local force_y = -self.stiffness * delta_y
-    local damping_y = -self.damping * self.velocity_y
-    self.velocity_y = self.velocity_y + ((force_y + damping_y)/self.mass) * dt
-    self._y = self._y + self.velocity_y * dt
-  else
-    self._y = y
+  if math.abs(delta_y) < self.threshold then
+    y_step = delta_y
     self.velocity_y = 0
   end
+
+  ...
 end
 ```
 
@@ -717,12 +730,9 @@ Therefore, the only change that we need to make to simulate this behavior is:
 
 ```lua {title="Critically Damped Spring System (Frame-Rate Independent)"}
 function Camera:new()
-  o.velocityX = 0 -- Initialize velocity for X
-  o.velocityY = 0 -- Initialize velocity for Y
-  o.threshold = 0.01 -- Threshold to prevent infinite calculations
-  o.stiffness = 10 -- Spring stiffness (k)
-  o.mass = 1 -- Mass of the spring (m)
+  ...
   o.damping = 2 * math.sqrt(o.stiffness * o.mass)-- Damping coefficient (c)
+  ...
 end
 ```
 
@@ -780,26 +790,17 @@ end
 
 We see here that is follows the same idea of modifying the velocity and using
 it to update the position of the camera. The target in our case would
-be `self.target.x - self.width/2` and `self.target.y - self.height/2`.
+be `delta_x` and `delta_y` and our current positions would be (0, 0) since we 
+are in the Camera coordinate space.
 
 ```lua {title="Smooth Damp Update Call"}
 function Camera:update(dt)
-  self._x, self.velocity_x = smoothDamp(
-    self._x,
-    self.target.x - self.width / 2,
-    self.velocity_x,
-    0.3,
-    75,
-    dt
-  )
-  self._y, self.velocity_y = smoothDamp(
-    self._y,
-    self.target.x - self.height / 2,
-    self.velocity_y,
-    0.3,
-    50,
-    dt
-  )
+  ...
+
+  x_step, self.velocity_x = self:smoothDamp(0, delta_x, self.velocity_x, 0.3, 75, dt)
+  y_step, self.velocity_y = self:smoothDamp(0, delta_y, self.velocity_y, 0.3, 75, dt)
+
+  ...
 end
 ```
 
@@ -848,6 +849,7 @@ function Camera:update(dt)
 end
 ```
 
+## Screen Shake
 ## Look-ahead
 
 ## Camera for non-target scenarios

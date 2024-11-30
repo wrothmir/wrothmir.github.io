@@ -8,15 +8,6 @@ url = "/records/"
 title = ""
 
 [[main]]
-weight = 2
-identifier = "projects"
-pre = "<i class='fas fa-stream fa-fw'></i>"
-post = ""
-name = "Projects"
-url = "/projects/"
-title = ""
-
-[[main]]
 weight = 3
 identifier = "tags"
 pre = "<i class='fas fa-tag fa-fw'></i>"
