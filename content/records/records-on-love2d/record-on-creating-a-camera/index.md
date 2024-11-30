@@ -813,14 +813,153 @@ with the physics of things.
 With this, you are well equipped to get a smoothly moving camera! Now we move
 onto the next part of a good game camera, the Deadzones.
 
-## Screen Shake
+{{< admonition type=info title="Organizing code for multiple damping options" open=false >}}
+
+The current setup only allows for a singular damping method exist in the update
+block at any given time. This means that once the program is run, it is not 
+possible to choose another damping method for a particular case. Adding this 
+functionality to our code would make the Camera more flexible.
+
+We can achieve this in a couple of ways. The easiest, with our current setup, would be
+to set up a flag that the user can set which can then be compared to find out
+which damping method to execute. While simple, this means that there will be 
+many checks made during the update loop with an ***O(n)*** time complexity in the 
+worst case.
+
+Another method would be to create a table that stores these methods and use 
+the flag to get the function at that index and execute it. This however would 
+require defining the function in the `Camera:new()` method, and there is also
+the issue of different number of parameters and return values. This can,
+however, be worked around by moving the functions to a different file 
+altogether and utilizing closures for making the function signature similar.
+
+```lua {title="utils.lua"}
+local utils = {}
+
+utils.lerp = function(a, b, c, dt)
+  dt = dt or 1
+  return a + (b - a) * c * dt
+end
+
+utils.expDecay = function(a, b, c, dt)
+  dt = dt or 1
+  return a + (b - a) * (1 - math.exp(-c * dt))
+end
+
+utils.underDampedSpring = function(delta, mass, stiffness, damping, velocity, dt)
+  dt = dt or 1
+  local force = stiffness * delta
+  local d = damping * velocity
+  velocity = velocity + ((force - d) / mass) * dt
+  return velocity * dt, velocity
+end
+
+utils.smoothDamp = function(current, target, velocity, smoothTime, maxSpeed, dt)
+  smoothTime = math.max(0.0001, smoothTime)
+  local omega = 2.0 / smoothTime
+  local x = omega * dt
+  local exp = 1.0 / (1.0 + x + 0.48 * x ^ 2 + 0.235 * x ^ 3)
+  local change = current - target
+  local originalTo = target
+  local maxChange = maxSpeed * smoothTime
+  change = math.max(-maxChange, math.min(change, maxChange))
+  target = current - change
+  local temp = (velocity + omega * change) * dt
+  velocity = (velocity - omega * temp) * exp
+  local output = target + (change + temp) * exp
+  if (originalTo - current > 0) == (output > originalTo) then
+    output = originalTo
+    velocity = (output - originalTo) / dt
+  end
+  return output, velocity
+end
+
+return utils
+```
+
+We can now import these in our `init.lua` file and create closures.
+
+```lua {title="Creating closures to standardize function signature"}
+local utils = require("camera.utils")
+
+---@enum DampingMode
+DampingMode = {
+  STICKY = 1,
+  LERP = 2,
+  EXP_DECAY = 3,
+  UNDER_DAMPED_SPRING = 4,
+  CRITICAL_DAMPED_SPRING = 5,
+  SMOOTH_DAMP = 6
+}
+
+function Camera:new()
+  ...
+
+  o.damping_mode = DampingMode.LERP
+  o.damping_method = {
+    [DampingMode.STICKY] = function(delta, velocity, dt)
+      return delta, velocity
+    end,
+    [DampingMode.LERP] = function(delta, velocity, dt)
+      return utils.lerp(0, delta, o.damping, dt), velocity
+    end,
+    [DampingMode.EXP_DECAY] = function(delta, velocity, dt)
+      return utils.expDecay(0, delta, o.damping, dt), velocity
+    end,
+    [DampingMode.UNDER_DAMPED_SPRING] = function(delta, velocity, dt)
+      return utils.underDampedSpring(delta, o.mass, o.stiffness, o.damping, velocity, dt)
+    end,
+    [DampingMode.CRITICAL_DAMPED_SPRING] = function(delta, velocity, dt)
+      local damping = 2 * math.sqrt(o.stiffness * o.mass)
+      return utils.underDampedSpring(delta, o.mass, o.stiffness, damping, velocity, dt)
+    end,
+    [DampingMode.SMOOTH_DAMP] = function(delta, velocity, dt)
+      return utils.smoothDamp(0, delta, velocity, o.smoothTime, o.maxSpeed, dt)
+    end
+  }
+
+  ...
+end
+
+---@param mode DampingMode
+function Camera:setDampingMode(mode)
+  self.damping_mode = mode
+end
+```
+
+With this setup, we can go ahead an modify the `Camera:update()` method for 
+calculating the steps and velocity in each update call.
+
+```lua {title="Modified update method"}
+function Camera:update(dt)
+  ...
+
+  local x_step, y_step
+  x_step, self.velocity_x = self.damping_method[self.damping_mode](delta_x, self.velocity_x, dt)
+  y_step, self.velocity_y = self.damping_method[self.damping_mode](delta_y, self.velocity_y, dt)
+
+  ...
+end
+```
+
+I prefer this setup over the *if-else* checks as it has a better runtime 
+performance. It takes ***O(1)*** time to check the function because of using 
+table lookups. This also separates the functions into a utils file which 
+allows them to be used independently without creating a `Camera` instance.
+This setup will require a bit more memory per object instance as the 
+closures would be created separately for each of them. But if there are not 
+many cameras in use, as is the case usually, then that little extra memory 
+usage is a fair trade-off for a more performant update loop.
+
+{{< /admonition >}}
+
 ## Deadzones
 
 Deadzones are, simply put, regions in which the target can move without the
 camera moving to track it. Why are deadzones necessary? If you have the camera
 tracking a target, readjusting the position at every small movement of the target
-can become annoying, sometimes even nauseating or disorienting. This can be
-avoided by implementing deadzones.
+can become annoying for the player, sometimes even nauseating or disorienting.
+This can be avoided by implementing deadzones.
 
 ![Camera with a Deadzone](./images/deadzone-1.png "Camera with a Deadzone")
 
