@@ -15,8 +15,8 @@ license: "<a rel='license external nofollow noopener noreffer' href='https://ope
 
 tags: ["löve", "game-dev", "lua"]
 categories: ["deepdive"]
-
 series: ["Coding a Camera in LÖVE"]
+
 relative: true
 
 featuredImage: "images/test.webp"
