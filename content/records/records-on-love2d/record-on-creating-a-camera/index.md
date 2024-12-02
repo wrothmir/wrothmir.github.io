@@ -1,5 +1,5 @@
 ---
-draft: true
+draft: false
 
 title: 'Camera Basics in LÖVE'
 subtitle: 'Part 1 of the series - Coding a Camera in LÖVE'
@@ -46,7 +46,7 @@ enableReadingTime: true
 A camera is an important part of most games. A good camera often affects how the
 player experiences the game. This record goes over how to create a good camera
 in the LÖVE framework. If you are reading this, having a basic understanding of
-programming and lua is recommended.
+programming and Lua is recommended.
 
 ## Understanding How Cameras Work In Games
 
@@ -276,7 +276,7 @@ target has to be manually attached once.
 {{< admonition type=warning title="Data Type for the Target" open=true >}}
 
 Keep in mind that the target has to be a table since tables are passed as references
-in Lua. Make sure that you are careful not to modify those target coords
+in Lua. Make sure that you are careful not to modify those target coordinates
 or else the target position itself would change.
 
 If you choose not to do so, you can set up the update function to accept the
@@ -950,5 +950,5 @@ usage is a fair trade-off for a more performant update loop.
 ## End Remarks
 
 With this, you can now go ahead and create a camera that follows a specific
-target. In the next post, we will go over some more essential concepts like
+target! Next time, we will go over some more essential concepts like
 deadzones, look-ahead, and more.
