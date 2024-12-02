@@ -1,8 +1,8 @@
 ---
 draft: true
 
-title: 'Creating a Camera in LÖVE'
-subtitle: ''
+title: 'Camera Basics in LÖVE'
+subtitle: 'Part 1 of the series - Coding a Camera in LÖVE'
 summary: 'A good camera makes a game feel much more polished. This record explores how to make one for 2d games.'
 description: 'Understanding and coding what makes a Camera feel good.'
 
@@ -15,6 +15,8 @@ license: "<a rel='license external nofollow noopener noreffer' href='https://ope
 
 tags: ["löve", "game-dev", "lua"]
 categories: ["deepdive"]
+
+series: ["Coding a Camera in LÖVE"]
 relative: true
 
 featuredImage: "images/test.webp"
