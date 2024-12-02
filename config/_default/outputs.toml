@@ -1,5 +1,4 @@
 home = ["HTML", "RSS", "JSON"]
 page = ["HTML", "MarkDown"]
 section = ["HTML", "RSS"]
-series = ["HTML", "RSS"]
 taxonomy = ["HTML", "RSS"]

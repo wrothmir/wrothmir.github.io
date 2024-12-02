@@ -21,8 +21,8 @@ series_navigation: true
 
 relative: true
 
-featuredImage: "images/test.webp"
-featuredImagePreview: "images/initial-world-and-camera-positions.png"
+featuredImage: "images/camera-in-love-base-featured-image.png"
+featuredImagePreview: "images/camera-in-love-base-featured-image.png"
 
 images: [""]
 toc:
