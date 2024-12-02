@@ -214,8 +214,6 @@ Now when we run the code, we can see that the target stays in the center of the
 Camera and is actually moving around the World (or rather the World is moving
 to keep the target in the center of the Camera) with the target in the center!
 
---TODO: Add gif here.
-
 We now have our basic Camera setup!
 
 ## Reorganizing Code to Make a Library
@@ -271,9 +269,17 @@ We create a new Camera instance by using the `Camera:new()` method.
 `Camera.target` now holds a reference to the target that we want to track, and the
 target has to be manually attached once.
 
---TODO: Add admonition NOTE for target being a table (that tables are passed as
-references) and that we must be careful not to modify those target coords
-or else the player position itself would change.
+{{< admonition type=warning title="Data Type for the Target" open=true >}}
+
+Keep in mind that the target has to be a table since tables are passed as references
+in Lua. Make sure that you are careful not to modify those target coords
+or else the target position itself would change.
+
+If you choose not to do so, you can set up the update function to accept the 
+target's x and y coordinates and update them there. This will remove the risk
+of modifying the target coordinates.
+
+{{< /admonition >}}
 
 The `Camera:update()` method has the logic for calculating the distance to
 move the world to get the target in the center.
@@ -341,18 +347,18 @@ function Camera:new()
   ...
   o.bounds = {
     set = false,
-    top_x = nil,            --The left most x coordinate of the World
+    left_x = nil,            --The left most x coordinate of the World
     top_y = nil,            --The left most y coordinate of the World
-    bottom_x = nil,         --The right most x coordinate of the World - The width of the Camera
+    right_x = nil,         --The right most x coordinate of the World - The width of the Camera
     bottom_y = nil          --The right most y coordinate of the World - The height of the Camera
   }
 end
 
 function Camera:setBounds(x, y, width, height)
   self.bounds.set = true
-  self.bounds.top_x = x
+  self.bounds.left_x = x
   self.bounds.top_y = y
-  self.bounds.bottom_x = x + width - self.width
+  self.bounds.right_x = x + width - self.width
   self.bounds.bottom_y = y + height - self.height
 end
 ```
@@ -367,7 +373,7 @@ function Camera:update()
   local y = self.target.y - self.height / 2
 
   if self.bounds.set then
-    x = math.max(self.bounds.top_x, math.min(x, self.bounds.bottom_x))
+    x = math.max(self.bounds.left_x, math.min(x, self.bounds.right_x))
     y = math.max(self.bounds.top_y, math.min(y, self.bounds.bottom_y))
   end
 
@@ -384,8 +390,6 @@ x and y of the `bounds` and stay lower than bottom x and y. This does mean that
 the target does not remain centered in the four corners. This might be a
 desirable feature for your game, and if it isn't, you can simply have `bounds.set`
 to `false`.
-
--- TODO: add gif (set boundary to ±100 in all directions)
 
 ## World to Camera Coordinates
 
@@ -422,10 +426,6 @@ function Camera:cameraToWorld(x, y)
   return world_x, world_y
 end
 ```
-
---## Camera Zoom
-
---## Camera Rotation
 
 ## Implementing Damping
 
@@ -474,7 +474,7 @@ function Camera:update()
   local y = self.wy + self:lerp(0, delta_y, self.damping)
 
   if self.bounds.set then
-    x = math.max(self.bounds.top_x, math.min(x, self.bounds.bottom_x))
+    x = math.max(self.bounds.left_x, math.min(x, self.bounds.right_x))
     y = math.max(self.bounds.top_y, math.min(y, self.bounds.bottom_y))
   end
 
@@ -569,7 +569,7 @@ function Camera:update(dt)
   local x, y = self:fromCameraToWorld(x_step, y_step)
 
   if self.bounds.set then
-    x = math.max(self.bounds.top_x, math.min(x, self.bounds.bottom_x))
+    x = math.max(self.bounds.left_x, math.min(x, self.bounds.right_x))
     y = math.max(self.bounds.top_y, math.min(y, self.bounds.bottom_y))
   end
 
@@ -582,8 +582,6 @@ end
 
 Doing this check in the update function instead of lerp ensures that we can
 use it for the upcoming update functions as well, making our code more modular.
-
---TODO: Add gif here.
 
 There are many more ways you can rig the camera to dampen movement. Let's have
 a look at some more of them.
@@ -618,8 +616,6 @@ function Camera:update(dt)
   ...
 end
 ```
-
---TODO: Add gif here.
 
 You can change the curve of damping by tweaking the factor to get the desired
 smoothness.
@@ -706,8 +702,6 @@ function Camera:update(dt)
 end
 ```
 
---TODO: Add gif here.
-
 You can play with the spring stiffness and the damping factor to get the result
 you desire. For the same `damping`, the higher the `stiffness`, the more
 oscillations take place. For the same `stiffness`, the higher the `damping`,
@@ -738,8 +732,6 @@ end
 
 With this small change, we can make the camera stop at the target without
 oscillations!
-
---TODO: Add gif here.
 
 ### SmoothDamp
 
@@ -807,8 +799,6 @@ end
 The Smooth Damp interpolation method provides us with good control over the
 camera movement without having to configure a lot of parameters and dealing
 with the physics of things.
-
--- TODO: Add gif here
 
 With this, you are well equipped to get a smoothly moving camera! Now we move
 onto the next part of a good game camera, the Deadzones.
@@ -953,42 +943,8 @@ usage is a fair trade-off for a more performant update loop.
 
 {{< /admonition >}}
 
-## Deadzones
+## End Remarks
 
-Deadzones are, simply put, regions in which the target can move without the
-camera moving to track it. Why are deadzones necessary? If you have the camera
-tracking a target, readjusting the position at every small movement of the target
-can become annoying for the player, sometimes even nauseating or disorienting.
-This can be avoided by implementing deadzones.
-
-![Camera with a Deadzone](./images/deadzone-1.png "Camera with a Deadzone")
-
-To implement a deadzone, we need to know what area of the camera the target
-is free to roam in. Having the ability to turn the deadzone on and off makes
-the camera more robust, so lets add a field to keep track of that.
-
-```lua {title="Deadzone Table for the Camera"}
-function Camera:new()
-  ...
-  o.deadzone = {
-    enable = false,
-    x = nil,
-    y = nil,
-    w = nil,
-    h = nil,
-  }
-end
-```
-
-With this, we can now check if the target is in the deadzone or not and update
-the world translation accordingly.
-
-```lua {title="Guard for World translation update"}
-function Camera:update(dt)
-end
-```
-
-## Screen Shake
-## Look-ahead
-
-## Camera for non-target scenarios
+With this, you can now go ahead and create a camera that follows a specific 
+target. In the next post, we will go over some more essential concepts like 
+deadzones, look-ahead, and more.
