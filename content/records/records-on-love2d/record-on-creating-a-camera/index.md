@@ -16,6 +16,8 @@ license: "<a rel='license external nofollow noopener noreffer' href='https://ope
 tags: ["löve", "game-dev", "lua"]
 categories: ["deepdive"]
 series: ["Coding a Camera in LÖVE"]
+series_weight: 1
+series_navigation: true
 
 relative: true
 

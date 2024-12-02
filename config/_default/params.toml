@@ -88,6 +88,7 @@ ignoreFieldNorm = false
 [page]
 hiddenFromHomePage = false
 hiddenFromSearch = false
+seriesNavigation = true
 twemoji = true
 lightgallery = true
 ruby = true

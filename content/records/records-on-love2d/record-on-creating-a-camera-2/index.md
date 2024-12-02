@@ -16,6 +16,9 @@ license: "<a rel='license external nofollow noopener noreffer' href='https://ope
 tags: []
 categories: []
 series: ["Coding a Camera in LÖVE"]
+series_weight: 2
+seriesNavigation: true
+
 relative: true
 
 featuredImage: ""
