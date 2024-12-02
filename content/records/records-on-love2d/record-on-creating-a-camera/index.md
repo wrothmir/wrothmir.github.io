@@ -275,7 +275,7 @@ Keep in mind that the target has to be a table since tables are passed as refere
 in Lua. Make sure that you are careful not to modify those target coords
 or else the target position itself would change.
 
-If you choose not to do so, you can set up the update function to accept the 
+If you choose not to do so, you can set up the update function to accept the
 target's x and y coordinates and update them there. This will remove the risk
 of modifying the target coordinates.
 
@@ -945,6 +945,6 @@ usage is a fair trade-off for a more performant update loop.
 
 ## End Remarks
 
-With this, you can now go ahead and create a camera that follows a specific 
-target. In the next post, we will go over some more essential concepts like 
+With this, you can now go ahead and create a camera that follows a specific
+target. In the next post, we will go over some more essential concepts like
 deadzones, look-ahead, and more.
