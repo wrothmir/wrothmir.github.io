@@ -9,8 +9,6 @@ description: 'Reasons to create Tuipist, and features.'
 date: 2024-09-21T18:04:39-07:00
 lastMod: 2024-09-26T00:47:08-07:00
 
-author: "fenrir"
-authorLink: "https://fenrir.is-a.dev"
 license: "<a rel='license external nofollow noopener noreffer' href='https://opensource.org/licenses/GPL-3.0' target='_blank'>GPL-3.0</a>"
 
 tags: ["tui", "terminal", "typing", "go"]

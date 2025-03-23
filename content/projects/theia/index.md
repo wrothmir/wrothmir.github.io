@@ -9,8 +9,6 @@ description: 'A Python wrapper for the USGS M2M API'
 date: 2024-11-05T19:32:35-08:00
 lastMod: 2024-11-05T19:32:35-08:00
 
-author: "fenrir"
-authorLink: "https://fenrir.is-a.dev"
 license: "<a rel='license external nofollow noopener noreffer' href='https://opensource.org/licenses/GPL-3.0' target='_blank'>GPL-3.0</a>"
 
 tags: ["Python, GIS"]

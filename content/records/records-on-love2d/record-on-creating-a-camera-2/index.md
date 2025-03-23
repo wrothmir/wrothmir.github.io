@@ -9,8 +9,6 @@ description: ''
 date: 2024-12-02T09:46:35-08:00
 lastMod: 2024-12-02T09:46:35-08:00
 
-author: "fenrir"
-authorLink: "https://fenrir.is-a.dev"
 license: "<a rel='license external nofollow noopener noreffer' href='https://opensource.org/licenses/GPL-3.0' target='_blank'>GPL-3.0</a>"
 
 tags: []

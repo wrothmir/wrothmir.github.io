@@ -1,5 +1,5 @@
 defaultTheme = "auto"
-gitRepo = "https://github.com/fenrir-san/fenrir-san.github.io"
+gitRepo = "https://github.com/wrothmir/wrothmir.github.io"
 fingerprint = ""
 enablePWA = true
 dateFormat = "2006-01-02"
@@ -9,9 +9,9 @@ images = []
 bundle = true
 
 [author]
-name = "fenrir"
-email = "fenrir.dev@tutamail.me"
-link = "https://fenrir.is-a.dev"
+name = "wrothmir"
+email = "wrothmir@gmail.com"
+link = "https://wrothmir.is-a.dev"
 
 [header]
 desktopMode = "fixed"
@@ -37,10 +37,10 @@ license = '<a rel="license external nofollow noopener noreffer" href="https://op
 
 [home.profile]
 enable = true
-gravatarEmail = "fenrir.dev@tutamail.me"
+gravatarEmail = "wrothmir@gmail.com"
 avatarURL = ""
 title = "Salutations, Voyagers."
-subtitle = "I am Fenrir, a wayfarer traversing the digital wastelands in search of hidden truths buried deep within the chaos. These words are for those who seek to uncover the unknown, so they may forge a brighter world from the shadows."
+subtitle = "I am Wrothmir, a wayfarer traversing the digital wastelands in search of hidden truths buried deep within the chaos. These words are for those who seek to uncover the unknown, so they may forge a brighter world from the shadows."
 typeit = true
 social = true
 disclaimer = "May the knowledge that rests here change your view of the unseen world."
@@ -54,13 +54,13 @@ enable = true
 paginate = 6
 
 [social]
-GitHub = "fenrir-san"
+GitHub = "wrothmir"
 Linkedin = "vineet-pratik-agarwal"
 Stackoverflow = ""
 Steam = ""
-Mastodon = "@fenrir-san"
-Ko-Fi = "fenrir"
-Email = "fenrir.dev@tutamail.me"
+Mastodon = ""
+Ko-Fi = ""
+Email = "wrothmir@gmail.com"
 RSS = true # DoIt NEW | 0.2.0
 
 [search]
